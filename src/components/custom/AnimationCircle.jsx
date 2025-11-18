@@ -9,6 +9,7 @@ const AnimationCircle = ({
   scale = 1, // use scale to animate visual size (transform)
   className = "",
   opacity = 0.6,
+  rotate = -30, // rotation in degrees for the progress stroke
 }) => {
   // Get numeric value from score
   let value = parseInt(String(score).replace("%", ""), 10);
@@ -61,7 +62,7 @@ const AnimationCircle = ({
           strokeDasharray={circumference}
           strokeDashoffset={offset}
           strokeLinecap="round"
-          transform={`rotate(-30 ${size / 2} ${size / 2})`}
+          transform={`rotate(${rotate} ${size / 2} ${size / 2})`}
         />
       </svg>
     </div>
