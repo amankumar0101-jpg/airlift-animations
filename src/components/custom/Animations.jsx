@@ -1605,7 +1605,7 @@ const Animations = () => {
         <div className="flex w-full min-h-[268px] h-full max-h-[268px] items-center"></div>
 
         {/* Bottom Part */}
-        <div className="flex min-w-[386px] w-full max-w-[386px] min-h-[218.73px] h-full max-h-[218.73px] items-center justify-end">
+        <div className="flex min-w-[386px] w-full max-w-[386px] min-h-[218.73px] h-full max-h-[218.73px] items-end justify-center">
           <img src={JSReqImg} alt="" className="w-full h-full object-cover" />
         </div>
       </>
