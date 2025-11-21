@@ -10,7 +10,7 @@ import Prolasticon from "@/assets/airlift-pro-complete-tab-icon.gif";
 const ProgressBar = () => {
   const [inProgress, setInProgress] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(10); // 5 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
   const [progressCompleted, setProgressCompleted] = useState(false);
 
   const totalTimeRef = useRef(timeLeft); // snapshot of total duration (seconds)
