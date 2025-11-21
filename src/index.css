@@ -150,3 +150,33 @@
 .font-montserrat {
   font-family: "Montserrat", sans-serif;
 }
+
+.scaleUpRight {
+  animation: scaleUpRight 0.8s ease-in-out forwards;
+}
+
+.scaleUpLeft {
+  animation: scaleUpLeft 0.8s ease-in-out forwards;
+}
+
+@keyframes scaleUpRight {
+  from {
+    transform: scale(0.7) translateX(0); /* Start smaller and at original position */
+    opacity: 0; /* Optional: Start invisible */
+  }
+  to {
+    transform: scale(1) translateX(50px); /* End at normal size and moved right */
+    opacity: 1; /* Optional: End fully visible */
+  }
+}
+
+@keyframes scaleUpLeft {
+  from {
+    transform: scale(1) translateX(50px); /* Start smaller and at original position */
+    opacity: 1; /* Optional: Start invisible */
+  }
+  to {
+    transform: scale(0.7) translateX(0); /* End at normal size and moved right */
+    opacity: 0; /* Optional: End fully visible */
+  }
+}

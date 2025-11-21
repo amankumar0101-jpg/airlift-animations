@@ -58,7 +58,7 @@ const ProgressDashboard = () => {
           <div className="min-h-[674px] h-full max-h-[674px] w-full relative">
             {/*gap-[48px]*/}
             <div
-              className="flex flex-col pt-7 min-h-[674px] h-full max-h-[674px]  overflow-hidden"
+              className="flex flex-col pt-7 min-h-[674px] h-full max-h-[674px]  overflow-y-hidden"
               ref={viewportRef}
             >
               <div
@@ -175,13 +175,7 @@ const ProgressDashboard = () => {
                     </div>
 
                     {/* Right Div That Contains Image */}
-                    <div
-                      className={`flex justify-center items-center min-w-[577.7px] w-full max-w-[577.5px] ${
-                        scrollTo === 1
-                          ? "origin-bottom-left scaleUpRight"
-                          : "origin-center scaleUpLeft"
-                      }`}
-                    >
+                    <div className="flex justify-center items-center min-w-[577.7px] w-full max-w-[577.5px]">
                       <img
                         src={Scrolldataimage}
                         alt="Scrolling Data Image"
@@ -295,13 +289,7 @@ const ProgressDashboard = () => {
                     </div>
 
                     {/* Right Div That Contains Image */}
-                    <div
-                      className={`flex justify-center items-center min-w-[577.7px] w-full max-w-[577.5px] ${
-                        scrollTo === 2
-                          ? "origin-bottom-left scaleUpRight"
-                          : "origin-center scaleUpLeft"
-                      }`}
-                    >
+                    <div className="flex justify-center items-center min-w-[577.7px] w-full max-w-[577.5px]">
                       <img
                         src={Scrolldataimagetwo}
                         alt="Scrolling Data Image"
@@ -420,13 +408,7 @@ const ProgressDashboard = () => {
                     </div>
 
                     {/* Right Div That Contains Image */}
-                    <div
-                      className={`flex justify-center items-center min-w-[577.7px] w-full max-w-[577.5px] ${
-                        scrollTo === 3
-                          ? "origin-bottom-left scaleUpRight"
-                          : "origin-center scaleUpLeft"
-                      }`}
-                    >
+                    <div className="flex justify-center items-center min-w-[577.7px] w-full max-w-[577.5px]">
                       <img
                         src={Scrolldataimagethree}
                         alt="Scrolling Data Image"
@@ -555,13 +537,7 @@ const ProgressDashboard = () => {
                     </div>
 
                     {/* Right Div That Contains Image */}
-                    <div
-                      className={`flex justify-center items-center min-w-[577.7px] w-full max-w-[577.5px] ${
-                        scrollTo === 4
-                          ? "origin-bottom-left scaleUpRight"
-                          : "origin-center scaleUpLeft"
-                      }`}
-                    >
+                    <div className="flex justify-center items-center min-w-[577.7px] w-full max-w-[577.5px]">
                       <img
                         src={Scrolldataimagefour}
                         alt="Scrolling Data Image"

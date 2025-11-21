@@ -10,8 +10,12 @@ import Prolasticon from "@/assets/airlift-pro-complete-tab-icon.gif";
 const ProgressBar = () => {
   const [inProgress, setInProgress] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState(200); // 5 minutes in seconds
   const [progressCompleted, setProgressCompleted] = useState(false);
+
+  // update interval (ms) used to drive progress and to set transition duration
+  // change this number to control tick frequency; UI transitions will follow it automatically
+  const intervalMs = 250;
 
   const totalTimeRef = useRef(timeLeft); // snapshot of total duration (seconds)
   useEffect(() => {
@@ -29,8 +33,7 @@ const ProgressBar = () => {
     if (!inProgress || progressCompleted) return;
 
     const total = totalTimeRef.current || 1;
-    // update interval (ms) — use 250ms for smoothness
-    const intervalMs = 250;
+    // per-tick progress (percent) derived from total seconds and the shared intervalMs
     const perTickProgress = (100 / total) * (intervalMs / 1000);
 
     const iv = setInterval(() => {
@@ -152,13 +155,19 @@ const ProgressBar = () => {
             <div className="w-full relative">
               <Progress
                 value={progress}
-                className="w-full rounded-full bg-zinc-100 h-1.5  [&>div]:!bg-indigo-700"
+                style={{ transition: `width ${intervalMs}ms linear` }}
+                className="w-full rounded-full bg-zinc-100 h-1.5 [&>div]:!bg-indigo-700"
               />
               <img
                 src={Proindicator}
                 alt="indicator"
-                className={`absolute top-[-8px] left-[0 - 10px)] w-[21.35px] h-[20px] object-cover`}
-                style={{ left: `calc(${progress}% - 10px)` }}
+                className="absolute top-[-8px] left-0 w-[21.35px] h-[20px] object-cover pointer-events-none z-10"
+                style={{
+                  transform: `translateX(${
+                    (Math.min(100, Math.max(0, progress)) / 100) * 1171 - 10
+                  }px)`,
+                  transition: `transform ${intervalMs}ms linear`,
+                }}
               />
             </div>
           </div>
@@ -194,7 +203,11 @@ const ProgressBar = () => {
 
               {/* button with icon */}
               <div className="w-fit flex flex-col items-end gap-4">
-                <X size={16} strokeWidth={1} className="text-[#71717A]" />
+                <X
+                  size={16}
+                  strokeWidth={1}
+                  className="text-[#71717A] shrink-0 cursor-pointer"
+                />
                 <Button className="!w-fit !bg-white cursor-pointer text-indigo-900 !text-[14px] !leading-[20px] !font-medium !py-1.5 !px-2 gap-2 h-6 !rounded-[8px] min-h-8">
                   <ExternalLink
                     size={16}
@@ -226,7 +239,7 @@ const ProgressBar = () => {
               </div>
 
               {/* count text*/}
-              <span className="bg-white border-[1px] border-zinc-600 flex items-center px-[4.5px] py-2 rounded-[16px] text-center font-normal text-[12px] leading-[100%] h-[24px] bg-teal-50 text-zinc-600 cursor-default">
+              <span className="border-[1px] border-zinc-600 flex items-center px-2 py-[4.5px] rounded-[16px] text-center font-normal text-[12px] leading-[100%] h-[24px] bg-zinc-50 text-zinc-600 cursor-default">
                 2 Pages
               </span>
             </div>

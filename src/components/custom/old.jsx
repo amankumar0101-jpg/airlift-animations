@@ -58,7 +58,7 @@ const ProgressDashboard = () => {
           <div className="min-h-[674px] h-full max-h-[674px] w-full relative">
             {/*gap-[48px]*/}
             <div
-              className="flex flex-col pt-7 min-h-[674px] h-full max-h-[674px]  overflow-hidden"
+              className="flex flex-col pt-7 min-h-[674px] h-full max-h-[674px]  overflow-y-hidden"
               ref={viewportRef}
             >
               <div
@@ -66,12 +66,10 @@ const ProgressDashboard = () => {
                 className="flex flex-col will-change-transform"
               >
                 {/* Row 1 Contents */}
-                <div
-                  className={`bg-[url('@/assets/airlift-dashed-border-scroll.png')] bg-repeat-y bg-[position:42.5px] bg-[length:1.5px_auto] relative row-item`}
-                >
+                <div className={`relative row-item`}>
                   <div className="px-8 pl-[69px] flex flex-row justify-between gap-6 w-full min-h-[581px] h-full max-h-[581px]">
                     {/* Absolute Dot Marker */}
-                    <div className="absolute top-[3px] left-[37px] bg-indigo-900 min-w-[13px] w-full max-w-[13px] min-h-[13px] h-full max-h-[13px] rounded-full"></div>
+                    <div className="absolute top-[3px] left-[32px] bg-indigo-900 min-w-[13px] w-full max-w-[13px] min-h-[13px] h-full max-h-[13px] rounded-full"></div>
                     {/* Left Div */}
                     <div className="flex flex-col min-w-[577.7px] w-full max-w-[577.5px]">
                       {/* Heading Text */}
@@ -175,13 +173,7 @@ const ProgressDashboard = () => {
                     </div>
 
                     {/* Right Div That Contains Image */}
-                    <div
-                      className={`flex justify-center items-center min-w-[577.7px] w-full max-w-[577.5px] ${
-                        scrollTo === 1
-                          ? "origin-bottom-left scaleUpRight"
-                          : "origin-center scaleUpLeft"
-                      }`}
-                    >
+                    <div className="flex justify-center items-center min-w-[577.7px] w-full max-w-[577.5px]">
                       <img
                         src={Scrolldataimage}
                         alt="Scrolling Data Image"
@@ -193,15 +185,15 @@ const ProgressDashboard = () => {
 
                 {/* Row 2 Contents */}
                 <div
-                  className={`bg-[url('@/assets/airlift-dashed-border-scroll.png')] bg-repeat-y bg-[position:42.5px] bg-[length:1.5px_auto] relative row-item ${
+                  className={`relative row-item ${
                     scrollTo === 2 || scrollTo === 3
                       ? "opacity-100"
                       : "opacity-20"
                   }`}
                 >
-                  <div className="px-8 pl-[69px] flex flex-row justify-between gap-6 w-full min-h-[581px] h-full max-h-[581px]">
+                  <div className="flex flex-row justify-between gap-6 w-full min-h-[581px] h-full max-h-[581px]">
                     {/* Absolute Dot Marker */}
-                    <div className="absolute top-[3px] left-[37px] bg-indigo-900 min-w-[13px] w-full max-w-[13px] min-h-[13px] h-full max-h-[13px] rounded-full"></div>
+                    <div className="absolute top-[3px] left-[-32px] bg-indigo-900 min-w-[13px] w-full max-w-[13px] min-h-[13px] h-full max-h-[13px] rounded-full"></div>
                     {/* Left Div */}
                     <div className="flex flex-col min-w-[577.7px] w-full max-w-[577.5px]">
                       {/* Heading Text */}
@@ -295,13 +287,7 @@ const ProgressDashboard = () => {
                     </div>
 
                     {/* Right Div That Contains Image */}
-                    <div
-                      className={`flex justify-center items-center min-w-[577.7px] w-full max-w-[577.5px] ${
-                        scrollTo === 2
-                          ? "origin-bottom-left scaleUpRight"
-                          : "origin-center scaleUpLeft"
-                      }`}
-                    >
+                    <div className="flex justify-center items-center min-w-[577.7px] w-full max-w-[577.5px]">
                       <img
                         src={Scrolldataimagetwo}
                         alt="Scrolling Data Image"
@@ -313,15 +299,15 @@ const ProgressDashboard = () => {
 
                 {/* Row 3 Contents */}
                 <div
-                  className={`bg-[url('@/assets/airlift-dashed-border-scroll.png')] bg-repeat-y bg-[position:42.5px] bg-[length:1.5px_auto] relative row-item ${
+                  className={`relative row-item ${
                     scrollTo === 3 || scrollTo === 4
                       ? "opacity-100"
                       : "opacity-20"
                   }`}
                 >
-                  <div className="px-8 pl-[69px] flex flex-row justify-between gap-6 w-full min-h-[581px] h-full max-h-[581px]">
+                  <div className="flex flex-row justify-between gap-6 w-full min-h-[581px] h-full max-h-[581px]">
                     {/* Absolute Dot Marker */}
-                    <div className="absolute top-[3px] left-[37px] bg-indigo-900 min-w-[13px] w-full max-w-[13px] min-h-[13px] h-full max-h-[13px] rounded-full"></div>
+                    <div className="absolute top-[3px] left-[-32px] bg-indigo-900 min-w-[13px] w-full max-w-[13px] min-h-[13px] h-full max-h-[13px] rounded-full"></div>
                     {/* Left Div */}
                     <div className="flex flex-col min-w-[577.7px] w-full max-w-[577.5px]">
                       {/* Heading Text */}
@@ -420,13 +406,7 @@ const ProgressDashboard = () => {
                     </div>
 
                     {/* Right Div That Contains Image */}
-                    <div
-                      className={`flex justify-center items-center min-w-[577.7px] w-full max-w-[577.5px] ${
-                        scrollTo === 3
-                          ? "origin-bottom-left scaleUpRight"
-                          : "origin-center scaleUpLeft"
-                      }`}
-                    >
+                    <div className="flex justify-center items-center min-w-[577.7px] w-full max-w-[577.5px]">
                       <img
                         src={Scrolldataimagethree}
                         alt="Scrolling Data Image"
@@ -438,15 +418,15 @@ const ProgressDashboard = () => {
 
                 {/* Row 4 Contents */}
                 <div
-                  className={`bg-[url('@/assets/airlift-dashed-border-scroll.png')] bg-repeat-y bg-[position:42.5px] bg-[length:1.5px_auto] relative row-item ${
+                  className={`relative row-item ${
                     scrollTo === 4 || scrollTo === 1
                       ? "opacity-100"
                       : "opacity-20"
                   }`}
                 >
-                  <div className="px-8 pl-[69px] flex flex-row justify-between gap-6 w-full min-h-[581px] h-full max-h-[581px]">
+                  <div className="flex flex-row justify-between gap-6 w-full min-h-[581px] h-full max-h-[581px]">
                     {/* Absolute Dot Marker */}
-                    <div className="absolute top-[3px] left-[37px] bg-indigo-900 min-w-[13px] w-full max-w-[13px] min-h-[13px] h-full max-h-[13px] rounded-full"></div>
+                    <div className="absolute top-[3px] left-[-32px] bg-indigo-900 min-w-[13px] w-full max-w-[13px] min-h-[13px] h-full max-h-[13px] rounded-full"></div>
                     {/* Left Div */}
                     <div className="flex flex-col min-w-[577.7px] w-full max-w-[577.5px]">
                       {/* Heading Text */}
@@ -555,13 +535,7 @@ const ProgressDashboard = () => {
                     </div>
 
                     {/* Right Div That Contains Image */}
-                    <div
-                      className={`flex justify-center items-center min-w-[577.7px] w-full max-w-[577.5px] ${
-                        scrollTo === 4
-                          ? "origin-bottom-left scaleUpRight"
-                          : "origin-center scaleUpLeft"
-                      }`}
-                    >
+                    <div className="flex justify-center items-center min-w-[577.7px] w-full max-w-[577.5px]">
                       <img
                         src={Scrolldataimagefour}
                         alt="Scrolling Data Image"
