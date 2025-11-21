@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import Proimage from "@/assets/airlift-progress-icon1.gif";
 import { ExternalLink, RefreshCcw, Timer, X } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
@@ -7,90 +7,13 @@ import Proendicon from "@/assets/airlift-progress-bar-end-icon.gif";
 import { Button } from "@/components/ui/button";
 import Prolasticon from "@/assets/airlift-pro-complete-tab-icon.gif";
 
-const ProgressBar = () => {
-  const [inProgress, setInProgress] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(10); // 5 minutes in seconds
-  const [progressCompleted, setProgressCompleted] = useState(false);
-
-  const totalTimeRef = useRef(timeLeft); // snapshot of total duration (seconds)
-  useEffect(() => {
-    totalTimeRef.current = timeLeft;
-  }, [timeLeft]);
-
-  // start inProgress automatically after 3s
-  useEffect(() => {
-    const t = setTimeout(() => setInProgress(true), 3000);
-    return () => clearTimeout(t);
-  }, []);
-
-  // drive progress and timeLeft while inProgress === true
-  useEffect(() => {
-    if (!inProgress || progressCompleted) return;
-
-    const total = totalTimeRef.current || 1;
-    // update interval (ms) — use 250ms for smoothness
-    const intervalMs = 250;
-    const perTickProgress = (100 / total) * (intervalMs / 1000);
-
-    const iv = setInterval(() => {
-      setProgress((p) => {
-        const next = Math.min(100, +(p + perTickProgress).toFixed(2));
-        if (next >= 100) {
-          // finish
-          clearInterval(iv);
-          setInProgress(false);
-          setProgressCompleted(true);
-          setTimeLeft(0);
-          return 100;
-        }
-        return next;
-      });
-
-      setTimeLeft((t) => Math.max(0, t - intervalMs / 1000));
-    }, intervalMs);
-
-    return () => clearInterval(iv);
-  }, [inProgress, progressCompleted]);
-
-  const ProgressData = {
-    0: {
-      heading: "Hang tight!",
-      subheading: "We’re preparing everything you need.",
-      barinfo:
-        "Optimizing every corner of your site for a smoother, faster experience.",
-    },
-    90: {
-      heading: "Hang tight!",
-      subheading: "We’re preparing everything you need.",
-      barinfo: "Finishing up!",
-    },
-    100: {
-      heading: "Woohoo!",
-      subheading: "Your site is fully optimized and ready to go.",
-      barinfo:
-        "Everything’s set! Enjoy your faster, smoother homepage experience.",
-    },
-  };
-  const { heading, subheading, barinfo } =
-    ProgressData[progress >= 100 ? 100 : progress >= 90 ? 90 : 0];
-
+const ProgressFull = () => {
   return (
     <>
       {/*Box for border */}
-      <div
-        className={`flex justify-center items-center min-w-[1280px] w-full max-w-[1280px] duration-200 transition-all ease-in-out h-full ${
-          progressCompleted
-            ? "max-h-[458px] min-h-[458px]"
-            : "max-h-[258px] min-h-[258px]"
-        } bg-[linear-gradient(92.17deg,rgba(45,212,191,0.4)-1.04%,rgba(129,140,248,0.4)41.74%,rgba(67,56,202,0.4)101.07%)] rounded-[20px] p-[1.5px]`}
-      >
+      <div className="flex justify-center items-center min-w-[1280px] w-full max-w-[1280px] min-h-[458px] h-full max-h-[458px] bg-[linear-gradient(92.17deg,rgba(45,212,191,0.4)-1.04%,rgba(129,140,248,0.4)41.74%,rgba(67,56,202,0.4)101.07%)] rounded-[20px] p-[1.5px]">
         {/* Main box for contents */}
-        <div
-          className={`w-full h-full relative overflow-hidden duration-200 transition-all ease-in-out bg-white rounded-[20px] p-6 ${
-            progressCompleted ? "min-h-[456.5px]" : "min-h-[256.5px]"
-          }`}
-        >
+        <div className="w-full h-full relative overflow-hidden bg-white min-h-[456.5px] h-full rounded-[20px] p-6">
           {/* below is the absolute top blur */}
           <div className="absolute w-full top-0 bg-[linear-gradient(188.91deg,rgba(165,180,252,0.5)32.24%,rgba(79,70,229,0.5)38.37%,rgba(165,243,252,0.5)48.58%,rgba(79,70,229,0.5)56.24%,rgba(199,210,254,0.5)61.51%,rgba(165,243,252,0.5)67.64%)] h-[51px] blur-[55px]"></div>
 
@@ -99,17 +22,17 @@ const ProgressBar = () => {
           <div className="w-full flex flex-row justify-between align-middle px-4">
             <div className="flex flex-col gap-[10px] w-fit">
               <span className="font-bold text-[18px] leading-[100%] text-indigo-900">
-                {heading}
+                Woohoo!
               </span>
               <span className="font-bold text-[24px] leading-[100%] text-indigo-900">
-                {subheading}
+                Your site is fully optimized and ready to go.
               </span>
             </div>
             {/* Progress image */}
             <div className="h-[55px] w-[55px] object-fill overflow-hidden flex items-center justify-center">
               <img
-                src={progressCompleted ? Prolasticon : Proimage}
-                alt="Backup Inactive"
+                src={Prolasticon}
+                alt="Prolasticon"
                 className="w-full object-cover h-[55px]"
               />
             </div>
@@ -120,7 +43,7 @@ const ProgressBar = () => {
             {/* Percentage */}
             <div className="flex flex-row gap-1 items-end w-fit">
               <span className="font-semibold text-[36px] leading-[100%] text-indigo-700">
-                {Math.round(progress)}
+                100
               </span>
               <p className="font-normal text-[12px] leading-[100%] text-indigo-700 mb-[6px]">
                 %
@@ -134,41 +57,26 @@ const ProgressBar = () => {
                 className="text-indigo-800 mb-[6px]"
               />
               <span className="font-semibold text-[30px] leading-[100%] text-zinc-300">
-                {(() => {
-                  const s = Math.max(0, Math.round(timeLeft));
-                  const hh = Math.floor(s / 3600);
-                  const mm = Math.floor((s % 3600) / 60);
-                  const ss = s % 60;
-                  return `${hh.toString().padStart(2, "0")}:${mm
-                    .toString()
-                    .padStart(2, "0")}:${ss.toString().padStart(2, "0")}`;
-                })()}
+                00:05:00
               </span>
             </div>
           </div>
 
           {/* Progress Bar */}
           <div className="w-full px-6 mt-2 relative">
-            <div className="w-full relative">
-              <Progress
-                value={progress}
-                className="w-full rounded-full bg-zinc-100 h-1.5  [&>div]:!bg-indigo-700"
-              />
-              <img
-                src={Proindicator}
-                alt="indicator"
-                className={`absolute top-[-8px] left-[0 - 10px)] w-[21.35px] h-[20px] object-cover`}
-                style={{ left: `calc(${progress}% - 10px)` }}
-              />
-            </div>
+            <Progress
+              value={100}
+              className="w-full rounded-full bg-zinc-100 h-1.5  [&>div]:!bg-indigo-700"
+            />
+            <img
+              src={Proindicator}
+              alt="indicator"
+              className="absolute top-[-8px] right-[20px] w-[21.35px] h-[20px] object-cover"
+            />
           </div>
 
           {/* Below Progress Bar Section */}
-          <div
-            className={`w-full flex flex-row justify-between duration-300 transition-all ease-in-out align-middle px-6 ${
-              progressCompleted ? "h-[96px]" : "h-0 overflow-hidden"
-            } ${progress === 100 ? "mt-6" : "mt-0"}`}
-          >
+          <div className="w-full flex flex-row justify-between align-middle px-6 mt-6">
             {/* left side div with gif */}
             <div className="flex flex-row justify-between items-center bg-[linear-gradient(92.17deg,rgba(67,56,202,0.06)-1.04%,rgba(129,140,248,0.06)56.4%,rgba(45,212,191,0.06)101.07%)] w-full rounded-[12px] p-4">
               {/* gif + text */}
@@ -208,17 +116,13 @@ const ProgressBar = () => {
           </div>
 
           {/* Optimization Section */}
-          <div
-            className={`w-full px-6 duration-300 transition-all ease-in-out ${
-              progressCompleted ? "h-[58px]" : "h-0 overflow-hidden"
-            } ${progress === 100 ? "mt-6" : "mt-0"}`}
-          >
+          <div className="w-full px-6 mt-6">
             <div className="bg-white p-4 w-full flex flex-row justify-between items-center border-[1.5px] border-[#F4F4F5] rounded-[12px]">
               <div className="flex flex-row gap-4 items-center w-fit">
                 <RefreshCcw
                   size={16}
                   strokeWidth={1}
-                  className="text-indigo-800 animate-spin"
+                  className="text-indigo-800"
                 />
                 <span className="font-medium text-[16px] leading-[100%] text-zinc-800">
                   Optimization Queue
@@ -235,7 +139,7 @@ const ProgressBar = () => {
           {/* Last text */}
           <div className="w-full px-6 mt-6">
             <p className="font-normal text-[14px] leading-[100%] text-zinc-600">
-              {barinfo}
+              Everything’s set! Enjoy your faster, smoother homepage experience.
             </p>
           </div>
         </div>
@@ -244,4 +148,4 @@ const ProgressBar = () => {
   );
 };
 
-export default ProgressBar;
+export default ProgressFull;
