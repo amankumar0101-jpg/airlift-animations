@@ -22,37 +22,11 @@ import BoxBg from "@/assets/airlift-animation-box-bg.webp";
 import Placeholder from "@/assets/airlift-placeholder.png";
 // import Blurbg from "@/assets/airlift-loader-bg-blur.png";
 import Bluricons from "@/assets/airlift-blur-icon.png";
-import Step5BG from "@/assets/step-5-bg.webp";
 import ConfigGif from "@/assets/airlift-configuration.gif";
 import JSReqImg from "@/assets/airlift-js-request-img.png";
 
 const Animations = () => {
-  const [airliftEnabled, setAirliftEnabled] = useState(true);
-  // start with transitions disabled so initial render doesn't animate
-  const [switchNoTransition, setSwitchNoTransition] = useState(true);
-  const autoToggleRef = useRef({ initTimer: null, loopId: null });
-
-  // Auto-toggle: after 2s enable transition + toggle once, then toggle every 5s
-  useEffect(() => {
-    autoToggleRef.current.initTimer = window.setTimeout(() => {
-      setSwitchNoTransition(false); // enable transitions
-      // toggle on next frame so transition class is applied before state change
-      requestAnimationFrame(() => setAirliftEnabled((v) => !v));
-
-      // loop toggles every 5s
-      autoToggleRef.current.loopId = window.setInterval(() => {
-        setAirliftEnabled((v) => !v);
-      }, 5000);
-    }, 5000);
-
-    return () => {
-      if (autoToggleRef.current.initTimer)
-        clearTimeout(autoToggleRef.current.initTimer);
-      if (autoToggleRef.current.loopId)
-        clearInterval(autoToggleRef.current.loopId);
-    };
-  }, []);
-
+  const [airliftEnabled, setAirliftEnabled] = useState(false);
   const [step, setStep] = useState(1); //1,2,3,4,5,6
   const [optimize, setOptimize] = useState(false);
   const [overlayVisible, setOverlayVisible] = useState(false); // controls render
@@ -641,14 +615,8 @@ const Animations = () => {
           </div>
           <Switch
             checked={airliftEnabled}
-            // onCheckedChange={setAirliftEnabled}
-            aria-disabled="true"
-            tabIndex={-1}
-            className={`${
-              switchNoTransition
-                ? "transition-none"
-                : "transition-all duration-300"
-            } h-5 w-9 cursor-default data-[state=checked]:bg-emerald-900 data-[state=unchecked]:bg-input [&>span]:h-4 [&>span]:w-4 [&[data-state=checked]>span]:translate-x-4 [&[data-state=unchecked]>span]:translate-x-0.5`}
+            onCheckedChange={setAirliftEnabled}
+            className="h-5 w-9 data-[state=checked]:bg-emerald-900 data-[state=unchecked]:bg-input [&>span]:h-4 [&>span]:w-4 [&[data-state=checked]>span]:translate-x-4 [&[data-state=unchecked]>span]:translate-x-0.5 cursor-pointer"
           />
         </div>
         {/* Con Part */}
@@ -768,7 +736,7 @@ const Animations = () => {
                 Performance
               </span>
               {optimize ? (
-                <span className="flex items-center px-[9.83px] py-[1.97px] rounded-2xl text-center leading-[15.73px] text-[11.8px] font-medium h-[19.93px] bg-teal-50 text-teal-700 border-[0.98px] border-solid border-teal-200 cursor-default">
+                <span className="flex items-center px-2.5 py-0.5 rounded-2xl text-center leading-[15.73px] text-[11.8px] font-medium h-[23.59px] bg-teal-50 text-teal-700 cursor-default">
                   Optimized
                 </span>
               ) : (
@@ -1604,18 +1572,11 @@ const Animations = () => {
     return (
       <>
         {/* Top Part */}
-        <div className="flex w-full min-h-[306px] h-full max-h-[306px] p-6  justify-center items-center relative">
-          <div className="min-w-[353.76px] w-full max-w-[353.76px] h-[443.49px] absolute transform-gpu rotate-[117.19deg] blur-[30px]">
-            <img
-              src={Step5BG}
-              alt=" Step 5 Background Box"
-              className="w-full h-full opacity-60 "
-            />
-          </div>
+        <div className="flex w-full min-h-[306px] h-full max-h-[306px] p-6 mix-blend-luminosity items-center justify-center">
           <img
             src={ConfigGif}
             alt="Configuration GIF"
-            className="w-full h-full object-contain transform-gpu rotate-[6.23deg] translate-y-[-52.5px] self-stretch mix-blend-luminosity"
+            className="w-full h-full object-contain transform-gpu rotate-[6.23deg]"
           />
         </div>
 
@@ -1666,11 +1627,7 @@ const Animations = () => {
           <div className="flex w-full h-full items-center justify-center absolute top-0 left-0 pointer-events-none select-none">
             {/* <div className="flex min-w-[353.76px] w-full max-w-[353.76px] min-h-[443.4px] h-full max-h-[443.4px] bg-[conic-gradient(from_43.24deg_at_24.88%_66.33%,_rgba(99,102,241,0.5)_-3.37deg,_#C7D2FE_54.89deg,_rgba(165,243,252,0.65)_63.64deg,_#FFFFFF_182.15deg,_#67E8F9_236.56deg,_rgba(99,102,241,0.5)_356.63deg,_#C7D2FE_414.89deg)] blur-[150px] opacity-60 transform-gpu rotate-[155.51deg]"> */}
             <div className="flex min-w-[353.76px] w-full max-w-[353.76px] min-h-[443.4px] h-full max-h-[443.4px]">
-              {(step === 1 ||
-                step === 2 ||
-                step === 3 ||
-                step === 4 ||
-                step === 6) && <img src={BoxBg} alt="Background Box" />}
+              <img src={BoxBg} alt="Background Box" />
             </div>
           </div>
           {step === 1 && firstStep()}

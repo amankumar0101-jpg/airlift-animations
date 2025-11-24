@@ -151,6 +151,19 @@
   font-family: "Montserrat", sans-serif;
 }
 
+.step-5-bg {
+  background: conic-gradient(
+    from 43.24deg at 24.88% 66.33%,
+    rgba(99, 102, 241, 0.5) -3.37deg,
+    #c7d2fe 54.89deg,
+    rgba(165, 243, 252, 0.65) 63.64deg,
+    #ffffff 182.15deg,
+    #67e8f9 236.56deg,
+    rgba(99, 102, 241, 0.5) 356.63deg,
+    #c7d2fe 414.89deg
+  );
+}
+
 .scaleUpRight {
   animation: scaleUpRight 0.8s ease-in-out forwards;
 }
