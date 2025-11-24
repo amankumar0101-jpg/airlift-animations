@@ -24,6 +24,7 @@ import Placeholder from "@/assets/airlift-placeholder.png";
 import Bluricons from "@/assets/airlift-blur-icon.png";
 import Step5BG from "@/assets/step-5-bg.webp";
 import ConfigGif from "@/assets/airlift-configuration.gif";
+import Step6 from "@/assets/step-6-js-animation.svg?react";
 import JSReqImg from "@/assets/airlift-js-request-img.png";
 
 const Animations = () => {
@@ -1641,11 +1642,21 @@ const Animations = () => {
     return (
       <>
         {/* Top Part */}
-        <div className="flex w-full min-h-[268px] h-full max-h-[268px] items-center"></div>
+        <div
+          className={`step6-container ${
+            step === 6 ? "play" : ""
+          } flex w-full min-h-[268px] h-full max-h-[268px] items-center justify-center`}
+        >
+          <Step6 className="min-w-[319px] w-full max-w-[319px] h-auto" />
+        </div>
 
         {/* Bottom Part */}
-        <div className="flex min-w-[386px] w-full max-w-[386px] min-h-[218.73px] h-full max-h-[218.73px] items-end justify-center">
-          <img src={JSReqImg} alt="" className="w-full h-full object-cover" />
+        <div className="flex min-w-[386px] w-full max-w-[386px] min-h-[217.73px] h-full max-h-[217.73px] items-center justify-center bg-white">
+          <img
+            src={JSReqImg}
+            alt=""
+            className="w-full h-[217.73px] object-cover"
+          />
         </div>
       </>
     );

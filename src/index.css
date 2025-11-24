@@ -83,6 +83,13 @@
   --sidebar-ring: oklch(0.557 0.154 166.11);
   /* emerald-600 */
 
+  --cycle: 6s; /* animation timing:
+   - total active cycle = 6s
+   - initial one-time boot delay handled via animation-delay in JS when adding .play if needed,
+     but you can also rely on animation-delay below to delay first run by 1s.
+*/
+  --boot-delay: 1s; /* initial delay before first cycle (only applied once) */
+
   font-family: "Inter", sans-serif;
 }
 
@@ -164,6 +171,50 @@
   );
 }
 
+/* initial reset so SVG elements are hidden until animation plays */
+.step6-container svg .main-out-box,
+.step6-container svg .main-lines,
+.step6-container svg .js-box-main,
+.step6-container svg .js-box,
+.step6-container svg .js-lines {
+  opacity: 0;
+  /* allow transforms on svg elements in modern browsers */
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.step6-container.play svg .main-out-box {
+  animation: outBoxAnim var(--cycle) linear infinite;
+  animation-delay: var(--boot-delay);
+  animation-fill-mode: none;
+}
+
+/* main-lines: translate + fade (2s window inside cycle) */
+.step6-container.play svg .main-lines {
+  animation: mainLinesAnim var(--cycle) linear infinite;
+  animation-delay: var(--boot-delay);
+  animation-fill-mode: none;
+}
+
+/* js-box-main / js-box: appear together after main-lines */
+.step6-container.play svg .js-box-main,
+.step6-container.play svg .js-box {
+  animation: jsBoxAnim var(--cycle) linear infinite;
+  animation-delay: var(--boot-delay);
+  animation-fill-mode: none;
+}
+
+/* js-lines: reveal after js-box */
+.step6-container.play svg .js-lines {
+  animation: jsLinesAnim var(--cycle) linear infinite;
+  animation-delay: var(--boot-delay);
+  animation-fill-mode: none;
+}
+
+.step6-container.play svg .main-lines {
+  animation-timing-function: ease;
+}
+
 .scaleUpRight {
   animation: scaleUpRight 0.8s ease-in-out forwards;
 }
@@ -192,4 +243,78 @@
     transform: scale(0.7) translateX(0); /* End at normal size and moved right */
     opacity: 0; /* Optional: End fully visible */
   }
+}
+
+@keyframes outBoxAnim {
+  0% {
+    opacity: 0;
+  }
+  16.6667% {
+    opacity: 1;
+  } /* 0-1s fade-in */
+  83.3333% {
+    opacity: 1;
+  } /* hold until near end */
+  100% {
+    opacity: 0;
+  } /* fade out for loop restart */
+}
+
+@keyframes mainLinesAnim {
+  0% {
+    opacity: 0;
+    /* transform: translateX(20px); */
+  }
+  16.6667% {
+    opacity: 0;
+    /* transform: translateX(20px); */
+  } /* waits until out-box done */
+  50% {
+    opacity: 1;
+    /* transform: translateX(0); */
+  } /* 1s->3s move+fade in */
+  83.3333% {
+    opacity: 1;
+    /* transform: translateX(0); */
+  } /* hold */
+  100% {
+    opacity: 0;
+    /* transform: translateX(20px); */
+  } /* fade/move out */
+}
+
+@keyframes jsBoxAnim {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  } /* starts at 3s */
+  66.6667% {
+    opacity: 1;
+  } /* 3s->4s fade in */
+  83.3333% {
+    opacity: 1;
+  } /* hold */
+  100% {
+    opacity: 0;
+  } /* fade out */
+}
+
+@keyframes jsLinesAnim {
+  0% {
+    opacity: 0;
+  }
+  66.6667% {
+    opacity: 0;
+  } /* waits until js-box done */
+  83.3333% {
+    opacity: 1;
+  } /* 4s->5s fade in */
+  95% {
+    opacity: 1;
+  } /* brief hold */
+  100% {
+    opacity: 0;
+  } /* fade out for loop */
 }
