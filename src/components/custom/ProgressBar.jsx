@@ -164,7 +164,7 @@ const ProgressBar = () => {
                 className="absolute top-[-8px] left-0 w-[21.35px] h-[20px] object-cover pointer-events-none z-10"
                 style={{
                   transform: `translateX(${
-                    (Math.min(100, Math.max(0, progress)) / 100) * 1171 - 10
+                    (Math.min(100, Math.max(0, progress)) / 100) * 1171 - 5.6
                   }px)`,
                   transition: `transform ${intervalMs}ms linear`,
                 }}
