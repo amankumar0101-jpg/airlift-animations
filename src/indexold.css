@@ -83,7 +83,14 @@
   --sidebar-ring: oklch(0.557 0.154 166.11);
   /* emerald-600 */
 
-  --step6-loop: 7.15s;
+  --cycle: calc(
+    6s + 0.3s
+  ); /* animation timing:
+   - total active cycle = 6s
+   - initial one-time boot delay handled via animation-delay in JS when adding .play if needed,
+     but you can also rely on animation-delay below to delay first run by 1s.
+*/
+  --boot-delay: 1s; /* initial delay before first cycle (only applied once) */
 
   font-family: "Inter", sans-serif;
 }

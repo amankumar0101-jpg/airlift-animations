@@ -25,10 +25,11 @@ import Placeholder from "@/assets/airlift-placeholder.png";
 import Bluricons from "@/assets/airlift-blur-icon.png";
 import Step5BG from "@/assets/step-5-bg.webp";
 import ConfigGif from "@/assets/airlift-configuration.gif";
+import Step6 from "@/assets/step-6-js-animation.svg?react";
 import JsIcon from "@/assets/js-icon.png";
 import JSReqImg from "@/assets/airlift-js-request-img.png";
 
-const Animations = () => {
+const AnimationTesting = () => {
   const [airliftEnabled, setAirliftEnabled] = useState(true);
   // start with transitions disabled so initial render doesn't animate
   const [switchNoTransition, setSwitchNoTransition] = useState(true);
@@ -55,7 +56,7 @@ const Animations = () => {
     };
   }, []);
 
-  const [step, setStep] = useState(1); //1,2,3,4,5,6
+  const [step, setStep] = useState(6); //1,2,3,4,5,6
   const [optimize, setOptimize] = useState(false);
   const [overlayVisible, setOverlayVisible] = useState(false); // controls render
   const [overlayExpanded, setOverlayExpanded] = useState(false); // controls height
@@ -134,6 +135,31 @@ const Animations = () => {
 
     rafRef.current = requestAnimationFrame(tick);
   };
+
+  useEffect(() => {
+    if (step !== 6) return;
+
+    let resetTimeout;
+    let restartTimeout;
+
+    // Total animation time = last delay (4301ms) + animation duration (800ms) + extra 2s gap
+    const totalDuration = 4301 + 800 + 2000;
+
+    // Remove .play to reset everything
+    resetTimeout = setTimeout(() => {
+      setPlay(false);
+    }, totalDuration);
+
+    // Add .play back after reset (small delay so CSS sees the change)
+    restartTimeout = setTimeout(() => {
+      setPlay(true);
+    }, totalDuration + 50);
+
+    return () => {
+      clearTimeout(resetTimeout);
+      clearTimeout(restartTimeout);
+    };
+  }, [step]);
 
   // start/stop animations in response to loaderWide (expand/shrink)
   useEffect(() => {
@@ -369,33 +395,6 @@ const Animations = () => {
     };
   }, [step, setTextOptimized]);
 
-  // js Animations part
-  useEffect(() => {
-    if (step !== 6) return;
-
-    let resetTimeout;
-    let restartTimeout;
-
-    // Total animation time = last delay (4301ms) + animation duration (800ms) + extra 2s gap
-    const totalDuration = 4301 + 800 + 2000;
-
-    // Remove .play to reset everything
-    resetTimeout = setTimeout(() => {
-      setPlay(false);
-    }, totalDuration);
-
-    // Add .play back after reset (small delay so CSS sees the change)
-    restartTimeout = setTimeout(() => {
-      setPlay(true);
-    }, totalDuration + 50);
-
-    return () => {
-      clearTimeout(resetTimeout);
-      clearTimeout(restartTimeout);
-    };
-  }, [step]);
-
-  // For js Animation Looping
   useEffect(() => {
     if (step === 6) {
       setPlay(true);
@@ -1822,4 +1821,4 @@ const Animations = () => {
   );
 };
 
-export default Animations;
+export default AnimationTesting;
