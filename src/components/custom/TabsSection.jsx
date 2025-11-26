@@ -21,7 +21,7 @@ const TabsSection = () => {
 
   return (
     <>
-      <div className="flex max-w-[1200px] w-full min-w-[1200px] min-h-[385px] h-full max-h-[385px] justify-between gap-14 px-6 items-center bg-[url('@/assets/airlift-tabs-bg.webp')] bg-no-repeat bg-[position:right_center]">
+      <div className="flex max-w-[1200px] w-full min-w-[1200px] min-h-[385px] h-full max-h-[385px] justify-between gap-14 px-6 items-center bg-[url('@/assets/airlift-tabs-bg.webp')] bg-no-repeat bg-[position:300px_center]">
         {/* Tab Titles */}
         <div className="max-w-[383px] w-full min-w-[383px] flex flex-col gap-6">
           {/* Title 1 */}

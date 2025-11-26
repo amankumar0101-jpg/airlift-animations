@@ -1,10 +1,8 @@
 import React from "react";
 import Animations from "@/components/custom/Animations";
 import ProgressBar from "@/components/custom/ProgressBar";
-import ProgressDashboard from "@/components/custom/ProgressDashboard";
-import ProgressFull from "@/components/custom/ProgressFull";
 import TabsSection from "@/components/custom/TabsSection";
-import AnimationTesting from "@/components/custom/AnimationTesting";
+import ProgressDashboard from "@/components/custom/ProgressDashboard";
 
 const AirliftAnimations = () => {
   return (
