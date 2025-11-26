@@ -46,7 +46,7 @@ const ProgressDashboard = () => {
               PROGRESS HIGHLIGHTS
             </p>
             {/* Button */}
-            <div className="flex flex-row gap-2 items-center w-fit py-2 px-4 bg-indigo-900 rounded-[6px] cursor-pointer">
+            <div className="flex flex-row gap-2 items-center w-fit py-2.5 px-4 bg-indigo-900 rounded-[6px] cursor-pointer">
               <Settings2 size={16} strokeWidth={1} className="text-white" />
               <span className="font-medium text-[14px] leading-[20px] text-white">
                 View Detailed Status
