@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Tabgif1 from "@/assets/airlift-tab-gif1.gif";
 import Tabgif2 from "@/assets/airlift-tab-gif2.gif";
 import Tab3gif1 from "@/assets/airlift-tabs-3-img1.png";
+import JsIcon from "@/assets/js-icon.png";
 import Tab3gif2 from "@/assets/airlift-tabs-3-img2.png";
 import Tab4gif from "@/assets/airlift-tabs-4-gif.gif";
 import { FileCode, Gauge, RefreshCcwDot, Scissors } from "lucide-react";
 
 const TabsSection = () => {
   const [activeTab, setActiveTab] = useState(1); //1,2,3,4
+  const [play, setPlay] = useState(false);
 
   const styles = {
     tabTitle: {
@@ -18,6 +20,42 @@ const TabsSection = () => {
 
   const titleClass = (i) =>
     activeTab === i ? styles.tabTitle.active : styles.tabTitle.inactive;
+
+  // For js Animation Looping
+  useEffect(() => {
+    if (activeTab === 3) {
+      setPlay(true);
+    } else {
+      setPlay(false);
+    }
+  }, [activeTab]);
+
+  // Looping control for tab-3 animations
+  useEffect(() => {
+    let intervalId;
+    let pulseTimeout;
+
+    const totalDuration = 4301 + 800 + 2000; // last delay + animation duration + 2s hold
+
+    if (activeTab === 3) {
+      // start immediately
+      setPlay(true);
+
+      // every totalDuration ms, pulse play off -> on so CSS animations restart
+      intervalId = setInterval(() => {
+        setPlay(false);
+        // small gap so CSS sees the class removal before re-adding
+        pulseTimeout = setTimeout(() => setPlay(true), 50);
+      }, totalDuration);
+    } else {
+      setPlay(false);
+    }
+
+    return () => {
+      clearInterval(intervalId);
+      clearTimeout(pulseTimeout);
+    };
+  }, [activeTab]);
 
   return (
     <>
@@ -292,14 +330,97 @@ const TabsSection = () => {
             {/* Content 3*/}
             {activeTab === 3 && (
               <div className="flex flex-col items-center relative min-w-[713px] w-full max-w-[713px] min-h-[337px] h-full max-h-[337px]">
-                <div className="flex min-w-[319px] w-full max-w-[319px] min-h-[257px] h-full max-h-[257px] overflow-hidden justify-center items-end">
+                {/* <div className="flex min-w-[319px] w-full max-w-[319px] min-h-[257px] h-full max-h-[257px] overflow-hidden justify-center items-end">
                   <img
                     src={Tab3gif1}
                     alt="Js Request"
                     className="w-full h-[265.5px] object-contain"
                   />
+                </div> */}
+                {/* Top Part */}
+                <div
+                  className={`activeTab4-container ${
+                    play ? "play" : ""
+                  } w-full min-h-[232.5px] h-full max-h-[232.5px] pl-[69px] pr-[68px] pt-[11.5px] relative flex justify-center`} //flex items-center justify-center
+                >
+                  <div className="flex flex-col min-w-[319px] w-full max-w-[319px] h-full">
+                    <div className="box-center-div flex justify-between mx-8 mb-[26px]">
+                      <div className="box-div opacity-0 flex items-center justify-center min-w-10 w-full max-w-10 min-h-10 h-full max-h-10 border-[0.5px] border-solid border-[#E4E4E7] p-2 rounded-[8px] transform-gpu relative">
+                        <FileCode
+                          size={16}
+                          strokeWidth={1}
+                          className="shrink-0 text-indigo-400"
+                        />
+                        <div className="flex w-[75px] h-[45px] absolute left-full top-1/2 bg-transparent">
+                          <div className="w-full h-full relative bg-transparent before:content-[''] before:absolute before:left-0 before:top-0 before:h-[1px] before:w-[0] before:bg-[repeating-linear-gradient(to_right,#C7D2FE_0_4px,transparent_4px_9px)] ani-x after:content-[''] after:absolute after:right-0 after:top-0 after:h-0 after:w-[1px] after:bg-[repeating-linear-gradient(to_bottom,#C7D2FE_0_4px,transparent_4px_9px)] ani-y">
+                            <div className="flex min-w-1.5 w-full max-w-1.5 min-h-1.5 h-full max-h-1.5 bg-indigo-200 transform-gpu rotate-45 absolute left-[calc(100%-.5px)] translate-x-[-50%] top-[0px] icon-move-down-center opacity-0"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="box-div opacity-0 flex items-center justify-center min-w-10 w-full max-w-10 min-h-10 h-full max-h-10 border-[0.5px] border-solid border-[#E4E4E7] p-2 rounded-[8px] transform-gpu relative">
+                        <FileCode
+                          size={16}
+                          strokeWidth={1}
+                          className="shrink-0 text-indigo-400"
+                        />
+                        <div className="flex w-[75px] h-[45px] absolute right-full top-1/2 bg-transparent">
+                          <div className="w-full h-full relative bg-transparent before:content-[''] before:absolute before:right-0 before:top-0 before:h-[1px] before:w-[0] before:bg-[repeating-linear-gradient(to_left,#C7D2FE_0_4px,transparent_4px_9px)] ani-x  after:content-[''] after:absolute after:left-0 after:top-0 after:h-0 after:w-[1px] after:bg-[repeating-linear-gradient(to_bottom,#C7D2FE_0_4px,transparent_4px_9px)] ani-y">
+                            <div className="flex min-w-1.5 w-full max-w-1.5 min-h-1.5 h-full max-h-1.5 bg-indigo-200 transform-gpu rotate-45 absolute left-[calc(0%+.5px)] translate-x-[-50%] top-[0px] icon-move-down-center opacity-0"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="box-last-div flex justify-between items-center relative">
+                      <div className="box-div opacity-0 flex items-center justify-center min-w-10 w-full max-w-10 min-h-10 h-full max-h-10 border-[0.5px] border-solid border-[#E4E4E7] p-2 rounded-[8px] transform-gpu relative">
+                        <FileCode
+                          size={16}
+                          strokeWidth={1}
+                          className="shrink-0 text-indigo-400"
+                        />
+                        <div className="flex w-[90px] h-[1px] absolute left-full top-1/2 bg-transparent">
+                          <div className="w-full h-full relative bg-transparent before:content-[''] before:absolute before:left-0 before:top-0 before:h-[1px] before:w-[0] before:max-w-[45px] before:bg-[repeating-linear-gradient(to_right,#C7D2FE_0_4px,transparent_4px_9px)] ani-x after:content-[''] after:absolute after:left-[45px] after:top-0 after:h-[1px] after:w-0 after:max-w-[44px] after:bg-[repeating-linear-gradient(to_right,#C7D2FE_0_4px,transparent_4px_9px)] ani-x-after">
+                            <div className="flex min-w-1.5 w-full max-w-1.5 min-h-1.5 h-full max-h-1.5 bg-indigo-200 transform-gpu rotate-45 absolute left-[45px] translate-y-[-50%] top-1/2 opacity-0 icon-move-left"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Js Icon Part */}
+                      <div className="flex flex-col items-center justify-end min-w-14 w-full max-w-14 min-h-14 h-full max-h-14 bg-white border-[0.96px] border-solid border-[#E4E4E7] rounded-[8px] shadow-[0px_10px_10px_-5px_#0000000A,0px_20px_25px_-5px_#0000001A] z-10 ani-js-icon opacity-0">
+                        <img
+                          src={JsIcon}
+                          alt="JS Icon"
+                          className="w-8 h-8 m-auto"
+                        />
+                        <div className="flex w-[1px] h-[97px] absolute left-1/2 -translate-x-1/2 top-full bg-transparent">
+                          <div className="w-full h-full relative bg-transparent before:content-[''] before:absolute before:left-0 before:top-0 before:h-0 before:max-h-[26px] before:w-[1px] before:bg-[repeating-linear-gradient(to_bottom,#3730A3_0_4px,transparent_4px_7px)] ani-js-before after:content-[''] after:absolute after:left-0 after:top-[26px] after:h-0 after:max-h-[71px] after:w-[1px] after:bg-[repeating-linear-gradient(to_bottom,#3730A3_0_4px,transparent_4px_8px)] ani-js-after">
+                            <div className="w-[0px] h-[0px] border-solid border-l-[3px] border-l-transparent border-r-[3px] border-r-transparent border-t-[3px] border-t-indigo-800 transform-gpu absolute left-1/2 translate-x-[-50%] top-[30px] js-icon-move-down opacity-0"></div>
+                          </div>
+                        </div>
+                        {/* Absolute Div again */}
+                        <div className="flex items-center justify-center px-[calc(8px-(0.91px*2))] py-2 border-[0.91px] border-solid border-indigo-400 absolute left-1/2 transform-gpu -translate-x-1/2 top-[calc(100%+26px)] text-[12px] leading-[100%] font-medium text-indigo-800 bg-indigo-50 w-[140px] h-[31px] rounded-[6px] ani-text-show opacity-0">
+                          Sending 1 JS Request
+                        </div>
+                      </div>
+
+                      <div className="box-div opacity-0 flex items-center justify-center min-w-10 w-full max-w-10 min-h-10 h-full max-h-10 border-[0.5px] border-solid border-[#E4E4E7] p-2 rounded-[8px] transform-gpu relative">
+                        <FileCode
+                          size={16}
+                          strokeWidth={1}
+                          className="shrink-0 text-indigo-400"
+                        />
+                        <div className="flex w-[90px] h-[1px] absolute right-full top-1/2 bg-transparent">
+                          <div className="w-full h-full relative bg-transparent before:content-[''] before:absolute before:right-0 before:top-0 before:h-[1px] before:w-[0] before:max-w-[45px] before:bg-[repeating-linear-gradient(to_right,#C7D2FE_0_4px,transparent_4px_9px)] ani-x after:content-[''] after:absolute after:right-[45px] after:top-0 after:h-[1px] after:w-0 after:max-w-[44px] after:bg-[repeating-linear-gradient(to_right,#C7D2FE_0_4px,transparent_4px_9px)] ani-x-after">
+                            <div className="flex min-w-1.5 w-full max-w-1.5 min-h-1.5 h-full max-h-1.5 bg-indigo-200 transform-gpu rotate-45 absolute right-[45px] translate-y-[-50%] top-1/2 opacity-0 icon-move-right"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex min-w-[386px] w-full max-w-[386px] min-h-[128.23px] h-full max-h-[128.23px]">
+
+                <div className="flex min-w-[386px] w-full max-w-[386px] min-h-[104px] h-full max-h-[104px]">
                   <img
                     src={Tab3gif2}
                     alt="Tab 3 Img 2"

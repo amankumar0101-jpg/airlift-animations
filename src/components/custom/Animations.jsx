@@ -369,32 +369,6 @@ const Animations = () => {
     };
   }, [step, setTextOptimized]);
 
-  // js Animations part
-  useEffect(() => {
-    if (step !== 6) return;
-
-    let resetTimeout;
-    let restartTimeout;
-
-    // Total animation time = last delay (4301ms) + animation duration (800ms) + extra 2s gap
-    const totalDuration = 4301 + 800 + 2000;
-
-    // Remove .play to reset everything
-    resetTimeout = setTimeout(() => {
-      setPlay(false);
-    }, totalDuration);
-
-    // Add .play back after reset (small delay so CSS sees the change)
-    restartTimeout = setTimeout(() => {
-      setPlay(true);
-    }, totalDuration + 50);
-
-    return () => {
-      clearTimeout(resetTimeout);
-      clearTimeout(restartTimeout);
-    };
-  }, [step]);
-
   // For js Animation Looping
   useEffect(() => {
     if (step === 6) {
@@ -402,6 +376,33 @@ const Animations = () => {
     } else {
       setPlay(false);
     }
+  }, [step]);
+
+  // Looping control for tab-3 animations
+  useEffect(() => {
+    let intervalId;
+    let pulseTimeout;
+
+    const totalDuration = 4301 + 800 + 2000; // last delay + animation duration + 2s hold
+
+    if (step === 6) {
+      // start immediately
+      setPlay(true);
+
+      // every totalDuration ms, pulse play off -> on so CSS animations restart
+      intervalId = setInterval(() => {
+        setPlay(false);
+        // small gap so CSS sees the class removal before re-adding
+        pulseTimeout = setTimeout(() => setPlay(true), 50);
+      }, totalDuration);
+    } else {
+      setPlay(false);
+    }
+
+    return () => {
+      clearInterval(intervalId);
+      clearTimeout(pulseTimeout);
+    };
   }, [step]);
 
   const containerVariants = {
@@ -1285,7 +1286,13 @@ const Animations = () => {
         {/* first 2 text boxes */}
         <div className="w-full flex flex-row justify-center gap-[14.77px]">
           {/* Textbox 1*/}
-          <div className="flex flex-row gap-2 min-w-[167.89px] w-full max-w-[167.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] border-[#E4E4E7] rounded-[16px] py-[calc(16px-0.91px)] px-2">
+          <div
+            className={`flex flex-row gap-2 min-w-[167.89px] w-full max-w-[167.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] ${
+              textOptimized
+                ? "bg-indigo-50 border-indigo-400"
+                : "bg-transparent border-[#E4E4E7]"
+            } transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+          >
             <Type
               size={14.54}
               strokeWidth={1.36}
@@ -1312,7 +1319,13 @@ const Animations = () => {
           </div>
 
           {/* Textbox 2*/}
-          <div className="flex flex-row gap-2 min-w-[171.89px] w-full max-w-[171.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] border-[#E4E4E7] rounded-[16px] py-[calc(16px-0.91px)] px-2">
+          <div
+            className={`flex flex-row gap-2 min-w-[171.89px] w-full max-w-[171.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] ${
+              textOptimized
+                ? "bg-indigo-50 border-indigo-400"
+                : "bg-transparent border-[#E4E4E7]"
+            } transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+          >
             <Type
               size={14.54}
               strokeWidth={1.36}
@@ -1342,7 +1355,13 @@ const Animations = () => {
         {/* 3 text boxes section*/}
         <div className="w-full flex flex-row justify-center gap-[14.21px] mt-[18.24px]">
           {/* Textbox 1*/}
-          <div className="flex flex-row gap-2 min-w-[183.89px] w-full max-w-[183.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] border-[#E4E4E7] rounded-[16px] py-[calc(16px-0.91px)] px-2">
+          <div
+            className={`flex flex-row gap-2 min-w-[183.89px] w-full max-w-[183.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] ${
+              textOptimized
+                ? "bg-indigo-50 border-indigo-400"
+                : "bg-transparent border-[#E4E4E7]"
+            } transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+          >
             <Type
               size={14.54}
               strokeWidth={1.36}
@@ -1369,7 +1388,13 @@ const Animations = () => {
           </div>
 
           {/* Textbox 2*/}
-          <div className="flex flex-row gap-2 min-w-[162.89px] w-full max-w-[162.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] border-[#E4E4E7] rounded-[16px] py-[calc(16px-0.91px)] px-2">
+          <div
+            className={`flex flex-row gap-2 min-w-[162.89px] w-full max-w-[162.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] ${
+              textOptimized
+                ? "bg-indigo-50 border-indigo-400"
+                : "bg-transparent border-[#E4E4E7]"
+            } transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+          >
             <Type
               size={14.54}
               strokeWidth={1.36}
@@ -1396,7 +1421,13 @@ const Animations = () => {
           </div>
 
           {/* Textbox 3*/}
-          <div className="flex flex-row gap-2 min-w-[175.89px] w-full max-w-[175.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] border-[#E4E4E7] rounded-[16px] py-[calc(16px-0.91px)] px-2">
+          <div
+            className={`flex flex-row gap-2 min-w-[175.89px] w-full max-w-[175.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] ${
+              textOptimized
+                ? "bg-indigo-50 border-indigo-400"
+                : "bg-transparent border-[#E4E4E7]"
+            } transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+          >
             <Type
               size={14.54}
               strokeWidth={1.36}
@@ -1426,7 +1457,13 @@ const Animations = () => {
         {/* 3 text boxes section 2*/}
         <div className="w-full flex flex-row justify-center gap-[14.13px] mt-[18.24px]">
           {/* Textbox 1*/}
-          <div className="flex flex-row gap-2 min-w-[183.89px] w-full max-w-[183.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] border-[#E4E4E7] rounded-[16px] py-[calc(16px-0.91px)] px-2">
+          <div
+            className={`flex flex-row gap-2 min-w-[183.89px] w-full max-w-[183.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] ${
+              textOptimized
+                ? "bg-indigo-50 border-indigo-400"
+                : "bg-transparent border-[#E4E4E7]"
+            } transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+          >
             <Type
               size={14.54}
               strokeWidth={1.36}
@@ -1453,7 +1490,13 @@ const Animations = () => {
           </div>
 
           {/* Textbox 2*/}
-          <div className="flex flex-row gap-2 min-w-[198.89px] w-full max-w-[198.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] border-[#E4E4E7] rounded-[16px] py-[calc(16px-0.91px)] px-2">
+          <div
+            className={`flex flex-row gap-2 min-w-[198.89px] w-full max-w-[198.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] ${
+              textOptimized
+                ? "bg-indigo-50 border-indigo-400"
+                : "bg-transparent border-[#E4E4E7]"
+            } transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+          >
             <Type
               size={14.54}
               strokeWidth={1.36}
@@ -1480,7 +1523,13 @@ const Animations = () => {
           </div>
 
           {/* Textbox 3*/}
-          <div className="flex flex-row gap-2 min-w-[206.89px] w-full max-w-[206.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] border-[#E4E4E7] rounded-[16px] py-[calc(16px-0.91px)] px-2">
+          <div
+            className={`flex flex-row gap-2 min-w-[206.89px] w-full max-w-[206.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] ${
+              textOptimized
+                ? "bg-indigo-50 border-indigo-400"
+                : "bg-transparent border-[#E4E4E7]"
+            } transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+          >
             <Type
               size={14.54}
               strokeWidth={1.36}
@@ -1510,7 +1559,13 @@ const Animations = () => {
         {/* Last 2 text boxes */}
         <div className="w-full flex flex-row justify-center gap-[14.77px] mt-[18.24px]">
           {/* Textbox 1*/}
-          <div className="flex flex-row gap-2 min-w-[165.89px] w-full max-w-[165.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] border-[#E4E4E7] rounded-[16px] py-[calc(16px-0.91px)] px-2">
+          <div
+            className={`flex flex-row gap-2 min-w-[165.89px] w-full max-w-[165.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] ${
+              textOptimized
+                ? "bg-indigo-50 border-indigo-400"
+                : "bg-transparent border-[#E4E4E7]"
+            } transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+          >
             <Type
               size={14.54}
               strokeWidth={1.36}
@@ -1537,7 +1592,13 @@ const Animations = () => {
           </div>
 
           {/* Textbox 2*/}
-          <div className="flex flex-row gap-2 min-w-[144.89px] w-full max-w-[144.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] border-[#E4E4E7] rounded-[16px] py-[calc(16px-0.91px)] px-2">
+          <div
+            className={`flex flex-row gap-2 min-w-[144.89px] w-full max-w-[144.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] ${
+              textOptimized
+                ? "bg-indigo-50 border-indigo-400"
+                : "bg-transparent border-[#E4E4E7]"
+            } transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+          >
             <Type
               size={14.54}
               strokeWidth={1.36}

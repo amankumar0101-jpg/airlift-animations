@@ -46,37 +46,38 @@ const ProgressDashboard = () => {
 
   // For js Animation Looping
   useEffect(() => {
-    if (scrollTo !== 4) return;
-
-    let resetTimeout;
-    let restartTimeout;
-
-    // Total animation time = last delay (3301ms) + animation duration (800ms) + extra 2s gap
-    const totalDuration = 3301 + 800 + 2000;
-
-    // Remove .play to reset everything
-    resetTimeout = setTimeout(() => {
-      setPlay(false);
-    }, totalDuration);
-
-    // Add .play back after reset (small delay so CSS sees the change)
-    restartTimeout = setTimeout(() => {
-      setPlay(true);
-    }, totalDuration + 50);
-
-    return () => {
-      clearTimeout(resetTimeout);
-      clearTimeout(restartTimeout);
-    };
-  }, [scrollTo]);
-
-  // For js Animation Looping
-  useEffect(() => {
     if (scrollTo === 4) {
       setPlay(true);
     } else {
       setPlay(false);
     }
+  }, [scrollTo]);
+
+  // Looping control for tab-3 animations
+  useEffect(() => {
+    let intervalId;
+    let pulseTimeout;
+
+    const totalDuration = 3301 + 800 + 2000; // last delay + animation duration + 2s hold
+
+    if (scrollTo === 4) {
+      // start immediately
+      setPlay(true);
+
+      // every totalDuration ms, pulse play off -> on so CSS animations restart
+      intervalId = setInterval(() => {
+        setPlay(false);
+        // small gap so CSS sees the class removal before re-adding
+        pulseTimeout = setTimeout(() => setPlay(true), 50);
+      }, totalDuration);
+    } else {
+      setPlay(false);
+    }
+
+    return () => {
+      clearInterval(intervalId);
+      clearTimeout(pulseTimeout);
+    };
   }, [scrollTo]);
 
   return (

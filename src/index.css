@@ -203,7 +203,20 @@
   /* animation-delay: 0.2s; */
 }
 
+.activeTab4-container.play .box-div {
+  animation: revealBox 0.8s ease-in-out forwards;
+  animation-delay: 200ms; /* starts 200ms after trigger, finishes at 1000ms */
+  /* animation-delay: 0.2s; */
+}
+
 .step6-container.play .ani-x:before {
+  animation: revealXBorder 0.8s ease-in-out forwards;
+  animation-delay: 1300ms; /* starts 300ms after .box-div finished (1s + 300ms) */
+  /* animation-delay: 2.3s; */
+  /* animation: revealXBorder 0.8s linear forwards; */
+}
+
+.activeTab4-container.play .ani-x:before {
   animation: revealXBorder 0.8s ease-in-out forwards;
   animation-delay: 1300ms; /* starts 300ms after .box-div finished (1s + 300ms) */
   /* animation-delay: 2.3s; */
@@ -224,6 +237,13 @@
   /* animation-delay: 3.3s; */
 }
 
+.activeTab4-container.play .ani-x-after:after {
+  animation: revealXBorder 0.8s ease-in-out forwards;
+  animation-delay: 2101ms; /* starts 1ms after previous group finished (2.1s + 1ms) */
+  /* animation: revealXBorder 0.8s linear forwards; */
+  /* animation-delay: 3.3s; */
+}
+
 .scrollto4-container.play .ani-x-after:after {
   animation: revealXBorder 0.8s ease-in-out forwards;
   animation-delay: 1101ms; /* starts 1ms after previous group finished (2.1s + 1ms) */
@@ -232,6 +252,11 @@
 }
 
 .step6-container.play .icon-move-down {
+  animation: moveDown 0.8s ease-in-out forwards;
+  animation-delay: 2101ms; /* same small-offset group as .ani-x-after */
+}
+
+.activeTab4-container.play .icon-move-down {
   animation: moveDown 0.8s ease-in-out forwards;
   animation-delay: 2101ms; /* same small-offset group as .ani-x-after */
 }
@@ -246,12 +271,22 @@
   animation-delay: 2101ms; /* same small-offset group as .ani-x-after */
 }
 
+.activeTab4-container.play .icon-move-down-center {
+  animation: moveDownCenter 0.8s ease-in-out forwards;
+  animation-delay: 2101ms; /* same small-offset group as .ani-x-after */
+}
+
 .scrollto4-container.play .icon-move-down-center {
   animation: moveDownCenter 0.8s ease-in-out forwards;
   animation-delay: 1101ms; /* same small-offset group as .ani-x-after */
 }
 
 .step6-container.play .icon-move-left {
+  animation: moveLeft 0.8s ease-in-out forwards;
+  animation-delay: 2101ms; /* same small-offset group as .ani-x-after */
+}
+
+.activeTab4-container.play .icon-move-left {
   animation: moveLeft 0.8s ease-in-out forwards;
   animation-delay: 2101ms; /* same small-offset group as .ani-x-after */
 }
@@ -266,12 +301,24 @@
   animation-delay: 2101ms; /* same small-offset group as .ani-x-after */
 }
 
+.activeTab4-container.play .icon-move-right {
+  animation: moveRight 0.8s ease-in-out forwards;
+  animation-delay: 2101ms; /* same small-offset group as .ani-x-after */
+}
+
 .scrollto4-container.play .icon-move-right {
   animation: moveRight 0.8s ease-in-out forwards;
   animation-delay: 1101ms; /* same small-offset group as .ani-x-after */
 }
 
 .step6-container.play .ani-y:after {
+  animation: revealBottomBorder 0.8s ease-in-out forwards;
+  animation-delay: 2101ms; /* same small-offset group as .ani-x-after */
+  /* animation: revealBottomBorder 0.8s linear forwards; */
+  /* animation-delay: 2.3s; */
+}
+
+.activeTab4-container.play .ani-y:after {
   animation: revealBottomBorder 0.8s ease-in-out forwards;
   animation-delay: 2101ms; /* same small-offset group as .ani-x-after */
   /* animation: revealBottomBorder 0.8s linear forwards; */
@@ -292,6 +339,13 @@
   /* animation: revealBottomBorder 0.8s linear forwards; */
 }
 
+.activeTab4-container.play .ani-y-before:before {
+  animation: revealBottomBorder 0.8s ease-in-out forwards;
+  animation-delay: 1300ms; /* pairs with .ani-x:before */
+  /* animation-delay: 2.3s; */
+  /* animation: revealBottomBorder 0.8s linear forwards; */
+}
+
 .scrollto4-container.play .ani-y-before:before {
   animation: revealBottomBorder 0.8s ease-in-out forwards;
   animation-delay: 200ms; /* pairs with .ani-x:before */
@@ -300,6 +354,13 @@
 }
 
 .step6-container.play .ani-y-after:after {
+  animation: revealBottomBorder 0.8s ease-in-out forwards;
+  animation-delay: 2101ms; /* pairs with .ani-x-after/.ani-y */
+  /* animation: revealBottomBorder 0.8s linear forwards; */
+  /* animation-delay: 3.3s; */
+}
+
+.activeTab4-container.play .ani-y-after:after {
   animation: revealBottomBorder 0.8s ease-in-out forwards;
   animation-delay: 2101ms; /* pairs with .ani-x-after/.ani-y */
   /* animation: revealBottomBorder 0.8s linear forwards; */
@@ -319,6 +380,12 @@
   /* animation-delay: 2.6s; */
 }
 
+.activeTab4-container.play .ani-js-icon {
+  animation: jsIconPopIn 0.8s ease-in-out forwards;
+  animation-delay: 3101ms; /* starts 200ms after the previous group finished */
+  /* animation-delay: 2.6s; */
+}
+
 .scrollto4-container.play .ani-js-icon {
   animation: jsIconPopIn 0.8s ease-in-out forwards;
   animation-delay: 2101ms; /* starts 200ms after the previous group finished */
@@ -326,6 +393,12 @@
 }
 
 .step6-container.play .ani-text-show {
+  animation: textPopIn 0.8s ease-in-out forwards;
+  animation-delay: 4301ms; /* starts 200ms after the previous group finished */
+  /* animation-delay: 2.6s; */
+}
+
+.activeTab4-container.play .ani-text-show {
   animation: textPopIn 0.8s ease-in-out forwards;
   animation-delay: 4301ms; /* starts 200ms after the previous group finished */
   /* animation-delay: 2.6s; */
@@ -343,6 +416,12 @@
   /* animation-delay: 2.6s; */
 }
 
+.activeTab4-container.play .ani-js-before:before {
+  animation: jsrevealBottomBorder 0.8s ease-in-out forwards;
+  animation-delay: 4101ms; /* starts 200ms after the previous group finished */
+  /* animation-delay: 2.6s; */
+}
+
 .scrollto4-container.play .ani-js-before:before {
   animation: jsrevealBottomBorder 0.8s ease-in-out forwards;
   animation-delay: 3101ms; /* starts 200ms after the previous group finished */
@@ -355,6 +434,14 @@
   /* animation: revealBottomBorder 0.8s linear forwards; */
   /* animation-delay: 3.3s; */
 }
+
+.activeTab4-container.play .ani-js-after:after {
+  animation: jsrevealBottomBorder 0.8s ease-in-out forwards;
+  animation-delay: 4351ms; /* pairs with .ani-x-after/.ani-y */
+  /* animation: revealBottomBorder 0.8s linear forwards; */
+  /* animation-delay: 3.3s; */
+}
+
 .scrollto4-container.play .ani-js-after:after {
   animation: jsrevealBottomBorder 0.8s ease-in-out forwards;
   animation-delay: 3351ms; /* pairs with .ani-x-after/.ani-y */
@@ -363,6 +450,11 @@
 }
 
 .step6-container.play .js-icon-move-down {
+  animation: jsMoveDown 0.8s ease-in-out forwards;
+  animation-delay: 4351ms; /* same small-offset group as .ani-x-after */
+}
+
+.activeTab4-container.play .js-icon-move-down {
   animation: jsMoveDown 0.8s ease-in-out forwards;
   animation-delay: 4351ms; /* same small-offset group as .ani-x-after */
 }
