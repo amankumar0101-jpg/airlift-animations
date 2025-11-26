@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import Proimage from "@/assets/airlift-progress-icon1.gif";
 import { ExternalLink, RefreshCcw, Timer, X } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
-import Proindicator from "@/assets/airlift-progress-bar-indicator.png";
+// import Proindicator from "@/assets/airlift-progress-bar-indicator.png";
+import Proindicator from "@/assets/airlift-progress-bar-indicator.svg?react";
 import Proendicon from "@/assets/airlift-progress-bar-end-icon.gif";
 import { Button } from "@/components/ui/button";
 import Prolasticon from "@/assets/airlift-pro-complete-tab-icon.gif";
@@ -158,7 +159,7 @@ const ProgressBar = () => {
                 style={{ transition: `width ${intervalMs}ms linear` }}
                 className="w-full rounded-full bg-zinc-100 h-1.5 [&>div]:!bg-indigo-700"
               />
-              <img
+              {/* <img
                 src={Proindicator}
                 alt="indicator"
                 className="absolute top-[-8px] left-0 w-[21.35px] h-[20px] object-cover pointer-events-none z-10"
@@ -166,6 +167,15 @@ const ProgressBar = () => {
                   transform: `translateX(${
                     (Math.min(100, Math.max(0, progress)) / 100) * 1171 - 5.6
                   }px)`,
+                  transition: `transform ${intervalMs}ms linear`,
+                }}
+              /> */}
+              <Proindicator
+                className="absolute  left-0 w-[32px] h-[32px] object-cover pointer-events-none z-10"
+                style={{
+                  transform: `translate(${
+                    (Math.min(100, Math.max(0, progress)) / 100) * 1171 - 10
+                  }px, -19px)`,
                   transition: `transform ${intervalMs}ms linear`,
                 }}
               />

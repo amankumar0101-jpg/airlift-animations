@@ -57,7 +57,7 @@ const TabsSection = () => {
               </span>
               {/* Title Description */}
               <span
-                className={`text-[16px] font-medium leading-[120%] text-zinc-600 transition-all duration-300 ease-in-out mt-4 ${
+                className={`text-[16px] font-normal leading-[120%] text-zinc-600 transition-all duration-300 ease-in-out mt-4 ${
                   activeTab === 1
                     ? "mt-4 h-[57.61px]"
                     : " h-0 overflow-hidden mt-0"
@@ -102,7 +102,7 @@ const TabsSection = () => {
               </span>
               {/* Title Description */}
               <span
-                className={`text-[16px] font-medium leading-[120%] text-zinc-600 transition-all duration-300 ease-in-out mt-4 ${
+                className={`text-[16px] font-normal leading-[120%] text-zinc-600 transition-all duration-300 ease-in-out mt-4 ${
                   activeTab === 2
                     ? "mt-4 h-[57.61px]"
                     : " h-0 overflow-hidden mt-0"
@@ -147,7 +147,7 @@ const TabsSection = () => {
               </span>
               {/* Title Description */}
               <span
-                className={`text-[16px] font-medium leading-[120%] text-zinc-600 transition-all duration-300 ease-in-out mt-4 ${
+                className={`text-[16px] font-normal leading-[120%] text-zinc-600 transition-all duration-300 ease-in-out mt-4 ${
                   activeTab === 3
                     ? "mt-4 h-[57.61px]"
                     : " h-0 overflow-hidden mt-0"
@@ -192,7 +192,7 @@ const TabsSection = () => {
               </span>
               {/* Title Description */}
               <span
-                className={`text-[16px] font-medium leading-[120%] text-zinc-600 transition-all duration-300 ease-in-out mt-4 ${
+                className={`text-[16px] font-normal leading-[120%] text-zinc-600 transition-all duration-300 ease-in-out mt-4 ${
                   activeTab === 4
                     ? "mt-4 h-[57.61px]"
                     : " h-0 overflow-hidden mt-0"
@@ -243,13 +243,13 @@ const TabsSection = () => {
                     <FileCode
                       size={14.54}
                       strokeWidth={1.36}
-                      className="shrink-0"
+                      className="shrink-0 text-indigo-700"
                     />
                   ) : (
                     <RefreshCcwDot
                       size={14.54}
                       strokeWidth={1.36}
-                      className="shrink-0"
+                      className="shrink-0 text-indigo-700"
                     />
                   )}
                   {activeTab === 1
@@ -268,13 +268,13 @@ const TabsSection = () => {
                     <Gauge
                       size={14.54}
                       strokeWidth={1.36}
-                      className="shrink-0"
+                      className="shrink-0 text-indigo-700"
                     />
                   ) : (
                     <Scissors
                       size={14.54}
                       strokeWidth={1.36}
-                      className="shrink-0"
+                      className="shrink-0 text-indigo-700"
                     />
                   )}
                   {activeTab === 1 ? (

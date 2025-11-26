@@ -687,7 +687,7 @@ const Animations = () => {
               switchNoTransition
                 ? "transition-none"
                 : "transition-all duration-300"
-            } h-5 w-9 cursor-default data-[state=checked]:bg-emerald-900 data-[state=unchecked]:bg-input [&>span]:h-4 [&>span]:w-4 [&[data-state=checked]>span]:translate-x-4 [&[data-state=unchecked]>span]:translate-x-0.5`}
+            } h-5 w-9 cursor-default data-[state=checked]:bg-indigo-900 data-[state=unchecked]:bg-input [&>span]:h-4 [&>span]:w-4 [&[data-state=checked]>span]:translate-x-4 [&[data-state=unchecked]>span]:translate-x-0.5`}
           />
         </div>
         {/* Con Part */}
@@ -1654,7 +1654,7 @@ const Animations = () => {
           <img
             src={ConfigGif}
             alt="Configuration GIF"
-            className="w-full h-full object-contain transform-gpu rotate-[6.23deg] translate-y-[-52.5px] self-stretch mix-blend-luminosity"
+            className="w-[461.67px] h-[461.67px] object-cover transform-gpu rotate-[6.23deg] translate-y-[-60px] self-stretch mix-blend-luminosity"
           />
         </div>
 
