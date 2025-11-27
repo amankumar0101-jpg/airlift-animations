@@ -75,16 +75,55 @@ const Animations = () => {
   const [loaderTransition, setLoaderTransition] = useState("width 5s ease");
   const loaderTimersRef = useRef([]);
 
-  // loader line (the small column) — collapsed = 43.62px, expand target = 85%
-  const [loaderLineWidth, setLoaderLineWidth] = useState("43.62px");
+  // loader line (the small column) — collapsed X = 33px, expand target X = 421px
+  const [loaderLineX, setLoaderLineX] = useState(33); // px
   const [loaderLineTransition, setLoaderLineTransition] =
-    useState("width 5s ease");
+    useState("transform 5s ease");
 
   // loader percent counter (1 -> 69). Stops at fixed 69 when textOptimized === true.
   const [loaderPercent, setLoaderPercent] = useState(1);
   const rafRef = useRef(null);
   const animRef = useRef(null); // { start, duration, from, to, mode }
   const stopTargetRef = useRef(null); // random stop target when textOptimized becomes true
+
+  // refs used to sync blur overlay with loader line
+  const loaderLineRef = useRef(null);
+  const bluredRef = useRef(null);
+
+  // keep the blur clip in sync with loaderLine position (updates each frame while step===4)
+  useEffect(() => {
+    if (step !== 4) {
+      if (bluredRef.current)
+        bluredRef.current.style.setProperty("--blur-clip", "100%");
+      return;
+    }
+
+    let rafId = null;
+    const tick = () => {
+      if (!loaderLineRef.current || !bluredRef.current) {
+        rafId = requestAnimationFrame(tick);
+        return;
+      }
+
+      const lineRect = loaderLineRef.current.getBoundingClientRect();
+      const containerRect = bluredRef.current.getBoundingClientRect();
+      // compute percentage of container width at the loader's right edge
+      const percent = Math.max(
+        0,
+        Math.min(
+          100,
+          ((lineRect.right - containerRect.left) / containerRect.width) * 100
+        )
+      );
+      bluredRef.current.style.setProperty("--blur-clip", `${percent}%`);
+      rafId = requestAnimationFrame(tick);
+    };
+
+    rafId = requestAnimationFrame(tick);
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, [loaderLineX, textOptimized, step]);
 
   const cancelRAF = () => {
     if (rafRef.current) {
@@ -303,18 +342,18 @@ const Animations = () => {
           setLoaderTransition("width 5s ease");
           setLoaderWide(true);
 
-          // line should animate in sync with main: expand to 85% over same 5s
-          setLoaderLineTransition("width 5s ease");
+          // line should animate in sync with main: translate from 33px -> 421px over same 5s
+          setLoaderLineTransition("transform 5s ease");
           // small tick so transition takes effect reliably in browsers
-          const tLineStart = setTimeout(() => setLoaderLineWidth("95%"), 10);
+          const tLineStart = setTimeout(() => setLoaderLineX(415), 10);
           loaderTimersRef.current.push(tLineStart);
 
           // after expand finishes -> set textOptimized = true
           const t1 = setTimeout(() => {
             if (!running) return;
             setTextOptimized(true);
-            // ensure the line reached 85%
-            setLoaderLineWidth("95%");
+            // ensure the line reached final X
+            setLoaderLineX(415);
           }, 5000);
           loaderTimersRef.current.push(t1);
 
@@ -324,11 +363,11 @@ const Animations = () => {
             setLoaderTransition("width 2s ease");
             setLoaderWide(false);
 
-            // shrink line in sync with main: go back to collapsed 43.62px over same 2s
-            setLoaderLineTransition("width 2s ease");
+            // shrink line in sync with main: translate back to 33px over same 2s
+            setLoaderLineTransition("transform 2s ease");
             const tLineShrink = setTimeout(() => {
               if (!running) return;
-              setLoaderLineWidth("43.62px");
+              setLoaderLineX(33);
             }, 20);
             loaderTimersRef.current.push(tLineShrink);
 
@@ -359,7 +398,7 @@ const Animations = () => {
         setLoaderWide(false);
         setLoaderTransition("width 5s ease");
         setTextOptimized(false);
-        setLoaderLineWidth("43.62px");
+        setLoaderLineX(33);
         setLoaderLineTransition("width 5s ease");
       };
     }
@@ -1280,354 +1319,701 @@ const Animations = () => {
     );
   }
 
+  function original() {
+    return (
+      <>
+        <div className="w-full h-full flex flex-col justify-center items-center grow z-1 bg-white">
+          <div
+            className={`w-full h-full flex flex-col ${dynamicSpacing} items-center grow relative`}
+          >
+            {/* Absolute Con with bg */}
+            <div className="flex w-full h-full items-center justify-center absolute top-0 left-0 pointer-events-none select-none">
+              <div className="flex min-w-[353.76px] w-full max-w-[353.76px] min-h-[443.4px] h-full max-h-[443.4px]">
+                <img src={BoxBg} alt="Background Box" />
+              </div>
+            </div>
+            <div className="flex flex-col gap-0  ">
+              {/* first 2 text boxes */}
+              <div className="w-full flex flex-row justify-center gap-[14.77px]">
+                {/* Textbox 1*/}
+                <div
+                  className={`flex flex-row gap-2 min-w-[167.89px] w-full max-w-[167.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-transparent border-[#E4E4E7] transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+                >
+                  <Type
+                    size={14.54}
+                    strokeWidth={1.36}
+                    className="text-indigo-800 z-5"
+                  />
+                  {/* text container */}
+                  <div className="flex flex-col gap-2">
+                    <p className="text-[12.72px] leading-[100%] text-zinc-800">
+                      Inter-Regular
+                      <span className="text-[12.72px] leading-[100%] text-zinc-800">
+                        .{text1}
+                      </span>
+                    </p>
+                    <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {size1} kB
+                      </span>{" "}
+                      |{" "}
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {time1}ms
+                      </span>
+                    </p>
+                  </div>
+                </div>
+
+                {/* Textbox 2*/}
+                <div
+                  className={`flex flex-row gap-2 min-w-[171.89px] w-full max-w-[171.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-transparent border-[#E4E4E7] transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+                >
+                  <Type
+                    size={14.54}
+                    strokeWidth={1.36}
+                    className="text-indigo-800 z-5"
+                  />
+                  {/* text container */}
+                  <div className="flex flex-col gap-2">
+                    <p className="text-[12.72px] leading-[100%] text-zinc-800">
+                      Inter-Medium
+                      <span className="text-[12.72px] leading-[100%] text-zinc-800">
+                        .{text2}
+                      </span>
+                    </p>
+                    <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {size2} kB
+                      </span>{" "}
+                      |{" "}
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {time2}ms
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 3 text boxes section*/}
+              <div className="w-full flex flex-row justify-center gap-[14.21px] mt-[18.24px]">
+                {/* Textbox 1*/}
+                <div
+                  className={`flex flex-row gap-2 min-w-[183.89px] w-full max-w-[183.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-transparent border-[#E4E4E7] transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+                >
+                  <Type
+                    size={14.54}
+                    strokeWidth={1.36}
+                    className="text-indigo-800 z-5"
+                  />
+                  {/* text container */}
+                  <div className="flex flex-col gap-2">
+                    <p className="text-[12.72px] leading-[100%] text-zinc-800">
+                      Inter-Regular
+                      <span className="text-[12.72px] leading-[100%] text-zinc-800">
+                        .{text3}
+                      </span>
+                    </p>
+                    <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {size3} kB
+                      </span>{" "}
+                      |{" "}
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {time3}ms
+                      </span>
+                    </p>
+                  </div>
+                </div>
+
+                {/* Textbox 2*/}
+                <div
+                  className={`flex flex-row gap-2 min-w-[162.89px] w-full max-w-[162.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-transparent border-[#E4E4E7] transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+                >
+                  <Type
+                    size={14.54}
+                    strokeWidth={1.36}
+                    className="text-indigo-800 z-5"
+                  />
+                  {/* text container */}
+                  <div className="flex flex-col gap-2">
+                    <p className="text-[12.72px] leading-[100%] text-zinc-800">
+                      Cardo-Bold
+                      <span className="text-[12.72px] leading-[100%] text-zinc-800">
+                        .{text4}
+                      </span>
+                    </p>
+                    <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {size4} kB
+                      </span>{" "}
+                      |{" "}
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {time4}ms
+                      </span>
+                    </p>
+                  </div>
+                </div>
+
+                {/* Textbox 3*/}
+                <div
+                  className={`flex flex-row gap-2 min-w-[175.89px] w-full max-w-[175.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-transparent border-[#E4E4E7] transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+                >
+                  <Type
+                    size={14.54}
+                    strokeWidth={1.36}
+                    className="text-indigo-800 z-5"
+                  />
+                  {/* text container */}
+                  <div className="flex flex-col gap-2">
+                    <p className="text-[12.72px] leading-[100%] text-zinc-800">
+                      Cardo-Bold
+                      <span className="text-[12.72px] leading-[100%] text-zinc-800">
+                        .{text5}
+                      </span>
+                    </p>
+                    <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {size5} kB
+                      </span>{" "}
+                      |{" "}
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {time5}ms
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 3 text boxes section 2*/}
+              <div className="w-full flex flex-row justify-center gap-[14.13px] mt-[18.24px]">
+                {/* Textbox 1*/}
+                <div
+                  className={`flex flex-row gap-2 min-w-[183.89px] w-full max-w-[183.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-transparent border-[#E4E4E7] transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+                >
+                  <Type
+                    size={14.54}
+                    strokeWidth={1.36}
+                    className="text-indigo-800 z-5"
+                  />
+                  {/* text container */}
+                  <div className="flex flex-col gap-2">
+                    <p className="text-[12.72px] leading-[100%] text-zinc-800">
+                      Inter-Regular
+                      <span className="text-[12.72px] leading-[100%] text-zinc-800">
+                        .{text6}
+                      </span>
+                    </p>
+                    <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {size6} kB
+                      </span>{" "}
+                      |{" "}
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {time6}ms
+                      </span>
+                    </p>
+                  </div>
+                </div>
+
+                {/* Textbox 2*/}
+                <div
+                  className={`flex flex-row gap-2 min-w-[198.89px] w-full max-w-[198.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-transparent border-[#E4E4E7] transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+                >
+                  <Type
+                    size={14.54}
+                    strokeWidth={1.36}
+                    className="text-indigo-800 z-5"
+                  />
+                  {/* text container */}
+                  <div className="flex flex-col gap-2">
+                    <p className="text-[12.72px] leading-[100%] text-zinc-800">
+                      Montserrat-Medium
+                      <span className="text-[12.72px] leading-[100%] text-zinc-800">
+                        .{text7}
+                      </span>
+                    </p>
+                    <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {size7} kB
+                      </span>{" "}
+                      |{" "}
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {time7}ms
+                      </span>
+                    </p>
+                  </div>
+                </div>
+
+                {/* Textbox 3*/}
+                <div
+                  className={`flex flex-row gap-2 min-w-[206.89px] w-full max-w-[206.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-transparent border-[#E4E4E7] transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+                >
+                  <Type
+                    size={14.54}
+                    strokeWidth={1.36}
+                    className="text-indigo-800 z-5"
+                  />
+                  {/* text container */}
+                  <div className="flex flex-col gap-2">
+                    <p className="text-[12.72px] leading-[100%] text-zinc-800">
+                      Montserrat-Medium
+                      <span className="text-[12.72px] leading-[100%] text-zinc-800">
+                        .{text8}
+                      </span>
+                    </p>
+                    <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {size8} kB
+                      </span>{" "}
+                      |{" "}
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {time8}ms
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Last 2 text boxes */}
+              <div className="w-full flex flex-row justify-center gap-[14.77px] mt-[18.24px]">
+                {/* Textbox 1*/}
+                <div
+                  className={`flex flex-row gap-2 min-w-[165.89px] w-full max-w-[165.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-transparent border-[#E4E4E7] transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+                >
+                  <Type
+                    size={14.54}
+                    strokeWidth={1.36}
+                    className="text-indigo-800 z-5"
+                  />
+                  {/* text container */}
+                  <div className="flex flex-col gap-2">
+                    <p className="text-[12.72px] leading-[100%] text-zinc-800">
+                      Lato-Regular
+                      <span className="text-[12.72px] leading-[100%] text-zinc-800">
+                        .{text9}
+                      </span>
+                    </p>
+                    <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {size9} kB
+                      </span>{" "}
+                      |{" "}
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {time9}ms
+                      </span>
+                    </p>
+                  </div>
+                </div>
+
+                {/* Textbox 2*/}
+                <div
+                  className={`flex flex-row gap-2 min-w-[144.89px] w-full max-w-[144.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-transparent border-[#E4E4E7] transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+                >
+                  <Type
+                    size={14.54}
+                    strokeWidth={1.36}
+                    className="text-indigo-800 z-5"
+                  />
+                  {/* text container */}
+                  <div className="flex flex-col gap-2">
+                    <p className="text-[12.72px] leading-[100%] text-zinc-800">
+                      Lato-Bold
+                      <span className="text-[12.72px] leading-[100%] text-zinc-800">
+                        .{text10}
+                      </span>
+                    </p>
+                    <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {size10} kB
+                      </span>{" "}
+                      |{" "}
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {time10}ms
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  function blured() {
+    return (
+      <>
+        <div
+          ref={bluredRef}
+          className={`w-full h-full flex flex-col justify-center items-center grow z-2 bg-white absolute blur-animation`}
+        >
+          <div
+            className={`w-full h-full flex flex-col ${dynamicSpacing} items-center grow relative`}
+          >
+            {/* Absolute Con with bg */}
+            <div className="flex w-full h-full items-center justify-center absolute top-0 left-0 pointer-events-none select-none">
+              <div className="flex min-w-[353.76px] w-full max-w-[353.76px] min-h-[443.4px] h-full max-h-[443.4px]">
+                <img src={BoxBg} alt="Background Box" />
+              </div>
+            </div>
+            <div className="flex flex-col gap-0">
+              {/* first 2 text boxes */}
+              <div className="w-full flex flex-row justify-center gap-[14.77px]">
+                {/* Textbox 1*/}
+                <div
+                  className={`flex flex-row gap-2 min-w-[167.89px] w-full max-w-[167.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-indigo-50 border-indigo-400 transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+                >
+                  <Type
+                    size={14.54}
+                    strokeWidth={1.36}
+                    className="text-indigo-800 z-5"
+                  />
+                  {/* text container */}
+                  <div className="flex flex-col gap-2">
+                    <p
+                      className={`text-[12.72px] leading-[100%] text-zinc-800 ${
+                        !textOptimized && "blur-[2.5px]"
+                      }`}
+                    >
+                      Inter-Regular
+                      <span className="text-[12.72px] leading-[100%] text-zinc-800">
+                        .{text1}
+                      </span>
+                    </p>
+                    <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {size1} kB
+                      </span>{" "}
+                      |{" "}
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {time1}ms
+                      </span>
+                    </p>
+                  </div>
+                </div>
+
+                {/* Textbox 2*/}
+                <div
+                  className={`flex flex-row gap-2 min-w-[171.89px] w-full max-w-[171.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-indigo-50 border-indigo-400 transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+                >
+                  <Type
+                    size={14.54}
+                    strokeWidth={1.36}
+                    className="text-indigo-800 z-5"
+                  />
+                  {/* text container */}
+                  <div className="flex flex-col gap-2">
+                    <p
+                      className={`text-[12.72px] leading-[100%] text-zinc-800 ${
+                        !textOptimized && "blur-[2.5px]"
+                      }`}
+                    >
+                      Inter-Medium
+                      <span className="text-[12.72px] leading-[100%] text-zinc-800">
+                        .{text2}
+                      </span>
+                    </p>
+                    <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {size2} kB
+                      </span>{" "}
+                      |{" "}
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {time2}ms
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 3 text boxes section*/}
+              <div className="w-full flex flex-row justify-center gap-[14.21px] mt-[18.24px]">
+                {/* Textbox 1*/}
+                <div
+                  className={`flex flex-row gap-2 min-w-[183.89px] w-full max-w-[183.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-indigo-50 border-indigo-400 transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+                >
+                  <Type
+                    size={14.54}
+                    strokeWidth={1.36}
+                    className="text-indigo-800 z-5"
+                  />
+                  {/* text container */}
+                  <div className="flex flex-col gap-2">
+                    <p
+                      className={`text-[12.72px] leading-[100%] text-zinc-800 ${
+                        !textOptimized && "blur-[2.5px]"
+                      }`}
+                    >
+                      Inter-Regular
+                      <span className="text-[12.72px] leading-[100%] text-zinc-800">
+                        .{text3}
+                      </span>
+                    </p>
+                    <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {size3} kB
+                      </span>{" "}
+                      |{" "}
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {time3}ms
+                      </span>
+                    </p>
+                  </div>
+                </div>
+
+                {/* Textbox 2*/}
+                <div
+                  className={`flex flex-row gap-2 min-w-[162.89px] w-full max-w-[162.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-indigo-50 border-indigo-400 transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+                >
+                  <Type
+                    size={14.54}
+                    strokeWidth={1.36}
+                    className="text-indigo-800 z-5"
+                  />
+                  {/* text container */}
+                  <div className="flex flex-col gap-2">
+                    <p
+                      className={`text-[12.72px] leading-[100%] text-zinc-800 ${
+                        !textOptimized && "blur-[2.5px]"
+                      }`}
+                    >
+                      Cardo-Bold
+                      <span className="text-[12.72px] leading-[100%] text-zinc-800">
+                        .{text4}
+                      </span>
+                    </p>
+                    <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {size4} kB
+                      </span>{" "}
+                      |{" "}
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {time4}ms
+                      </span>
+                    </p>
+                  </div>
+                </div>
+
+                {/* Textbox 3*/}
+                <div
+                  className={`flex flex-row gap-2 min-w-[175.89px] w-full max-w-[175.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-indigo-50 border-indigo-400 transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+                >
+                  <Type
+                    size={14.54}
+                    strokeWidth={1.36}
+                    className="text-indigo-800 z-5"
+                  />
+                  {/* text container */}
+                  <div className="flex flex-col gap-2">
+                    <p
+                      className={`text-[12.72px] leading-[100%] text-zinc-800 ${
+                        !textOptimized && "blur-[2.5px]"
+                      }`}
+                    >
+                      Cardo-Bold
+                      <span className="text-[12.72px] leading-[100%] text-zinc-800">
+                        .{text5}
+                      </span>
+                    </p>
+                    <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {size5} kB
+                      </span>{" "}
+                      |{" "}
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {time5}ms
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 3 text boxes section 2*/}
+              <div className="w-full flex flex-row justify-center gap-[14.13px] mt-[18.24px]">
+                {/* Textbox 1*/}
+                <div
+                  className={`flex flex-row gap-2 min-w-[183.89px] w-full max-w-[183.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-indigo-50 border-indigo-400 transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+                >
+                  <Type
+                    size={14.54}
+                    strokeWidth={1.36}
+                    className="text-indigo-800 z-5"
+                  />
+                  {/* text container */}
+                  <div className="flex flex-col gap-2">
+                    <p
+                      className={`text-[12.72px] leading-[100%] text-zinc-800 ${
+                        !textOptimized && "blur-[2.5px]"
+                      }`}
+                    >
+                      Inter-Regular
+                      <span className="text-[12.72px] leading-[100%] text-zinc-800">
+                        .{text6}
+                      </span>
+                    </p>
+                    <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {size6} kB
+                      </span>{" "}
+                      |{" "}
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {time6}ms
+                      </span>
+                    </p>
+                  </div>
+                </div>
+
+                {/* Textbox 2*/}
+                <div
+                  className={`flex flex-row gap-2 min-w-[198.89px] w-full max-w-[198.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-indigo-50 border-indigo-400 transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+                >
+                  <Type
+                    size={14.54}
+                    strokeWidth={1.36}
+                    className="text-indigo-800 z-5"
+                  />
+                  {/* text container */}
+                  <div className="flex flex-col gap-2">
+                    <p
+                      className={`text-[12.72px] leading-[100%] text-zinc-800 ${
+                        !textOptimized && "blur-[2.5px]"
+                      }`}
+                    >
+                      Montserrat-Medium
+                      <span className="text-[12.72px] leading-[100%] text-zinc-800">
+                        .{text7}
+                      </span>
+                    </p>
+                    <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {size7} kB
+                      </span>{" "}
+                      |{" "}
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {time7}ms
+                      </span>
+                    </p>
+                  </div>
+                </div>
+
+                {/* Textbox 3*/}
+                <div
+                  className={`flex flex-row gap-2 min-w-[206.89px] w-full max-w-[206.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-indigo-50 border-indigo-400 transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+                >
+                  <Type
+                    size={14.54}
+                    strokeWidth={1.36}
+                    className="text-indigo-800 z-5"
+                  />
+                  {/* text container */}
+                  <div className="flex flex-col gap-2">
+                    <p
+                      className={`text-[12.72px] leading-[100%] text-zinc-800 ${
+                        !textOptimized && "blur-[2.5px]"
+                      }`}
+                    >
+                      Montserrat-Medium
+                      <span className="text-[12.72px] leading-[100%] text-zinc-800">
+                        .{text8}
+                      </span>
+                    </p>
+                    <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {size8} kB
+                      </span>{" "}
+                      |{" "}
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {time8}ms
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Last 2 text boxes */}
+              <div className="w-full flex flex-row justify-center gap-[14.77px] mt-[18.24px]">
+                {/* Textbox 1*/}
+                <div
+                  className={`flex flex-row gap-2 min-w-[165.89px] w-full max-w-[165.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-indigo-50 border-indigo-400 transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+                >
+                  <Type
+                    size={14.54}
+                    strokeWidth={1.36}
+                    className="text-indigo-800 z-5"
+                  />
+                  {/* text container */}
+                  <div className="flex flex-col gap-2">
+                    <p
+                      className={`text-[12.72px] leading-[100%] text-zinc-800 ${
+                        !textOptimized && "blur-[2.5px]"
+                      }`}
+                    >
+                      Lato-Regular
+                      <span className="text-[12.72px] leading-[100%] text-zinc-800">
+                        .{text9}
+                      </span>
+                    </p>
+                    <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {size9} kB
+                      </span>{" "}
+                      |{" "}
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {time9}ms
+                      </span>
+                    </p>
+                  </div>
+                </div>
+
+                {/* Textbox 2*/}
+                <div
+                  className={`flex flex-row gap-2 min-w-[144.89px] w-full max-w-[144.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-indigo-50 border-indigo-400 transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
+                >
+                  <Type
+                    size={14.54}
+                    strokeWidth={1.36}
+                    className="text-indigo-800 z-5"
+                  />
+                  {/* text container */}
+                  <div className="flex flex-col gap-2">
+                    <p
+                      className={`text-[12.72px] leading-[100%] text-zinc-800 ${
+                        !textOptimized && "blur-[2.5px]"
+                      }`}
+                    >
+                      Lato-Bold
+                      <span className="text-[12.72px] leading-[100%] text-zinc-800">
+                        .{text10}
+                      </span>
+                    </p>
+                    <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {size10} kB
+                      </span>{" "}
+                      |{" "}
+                      <span className="text-[10.9px] leading-[100%] text-zinc-600">
+                        {time10}ms
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   function fourthStep() {
     return (
       <>
-        {/* first 2 text boxes */}
-        <div className="w-full flex flex-row justify-center gap-[14.77px]">
-          {/* Textbox 1*/}
-          <div
-            className={`flex flex-row gap-2 min-w-[167.89px] w-full max-w-[167.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] ${
-              textOptimized
-                ? "bg-indigo-50 border-indigo-400"
-                : "bg-transparent border-[#E4E4E7]"
-            } transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
-          >
-            <Type
-              size={14.54}
-              strokeWidth={1.36}
-              className="text-indigo-800 z-5"
-            />
-            {/* text container */}
-            <div className="flex flex-col gap-2">
-              <p className="text-[12.72px] leading-[100%] text-zinc-800">
-                Inter-Regular
-                <span className="text-[12.72px] leading-[100%] text-zinc-800">
-                  .{text1}
-                </span>
-              </p>
-              <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
-                <span className="text-[10.9px] leading-[100%] text-zinc-600">
-                  {size1} kB
-                </span>{" "}
-                |{" "}
-                <span className="text-[10.9px] leading-[100%] text-zinc-600">
-                  {time1}ms
-                </span>
-              </p>
-            </div>
-          </div>
-
-          {/* Textbox 2*/}
-          <div
-            className={`flex flex-row gap-2 min-w-[171.89px] w-full max-w-[171.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] ${
-              textOptimized
-                ? "bg-indigo-50 border-indigo-400"
-                : "bg-transparent border-[#E4E4E7]"
-            } transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
-          >
-            <Type
-              size={14.54}
-              strokeWidth={1.36}
-              className="text-indigo-800 z-5"
-            />
-            {/* text container */}
-            <div className="flex flex-col gap-2">
-              <p className="text-[12.72px] leading-[100%] text-zinc-800">
-                Inter-Medium
-                <span className="text-[12.72px] leading-[100%] text-zinc-800">
-                  .{text2}
-                </span>
-              </p>
-              <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
-                <span className="text-[10.9px] leading-[100%] text-zinc-600">
-                  {size2} kB
-                </span>{" "}
-                |{" "}
-                <span className="text-[10.9px] leading-[100%] text-zinc-600">
-                  {time2}ms
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* 3 text boxes section*/}
-        <div className="w-full flex flex-row justify-center gap-[14.21px] mt-[18.24px]">
-          {/* Textbox 1*/}
-          <div
-            className={`flex flex-row gap-2 min-w-[183.89px] w-full max-w-[183.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] ${
-              textOptimized
-                ? "bg-indigo-50 border-indigo-400"
-                : "bg-transparent border-[#E4E4E7]"
-            } transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
-          >
-            <Type
-              size={14.54}
-              strokeWidth={1.36}
-              className="text-indigo-800 z-5"
-            />
-            {/* text container */}
-            <div className="flex flex-col gap-2">
-              <p className="text-[12.72px] leading-[100%] text-zinc-800">
-                Inter-Regular
-                <span className="text-[12.72px] leading-[100%] text-zinc-800">
-                  .{text3}
-                </span>
-              </p>
-              <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
-                <span className="text-[10.9px] leading-[100%] text-zinc-600">
-                  {size3} kB
-                </span>{" "}
-                |{" "}
-                <span className="text-[10.9px] leading-[100%] text-zinc-600">
-                  {time3}ms
-                </span>
-              </p>
-            </div>
-          </div>
-
-          {/* Textbox 2*/}
-          <div
-            className={`flex flex-row gap-2 min-w-[162.89px] w-full max-w-[162.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] ${
-              textOptimized
-                ? "bg-indigo-50 border-indigo-400"
-                : "bg-transparent border-[#E4E4E7]"
-            } transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
-          >
-            <Type
-              size={14.54}
-              strokeWidth={1.36}
-              className="text-indigo-800 z-5"
-            />
-            {/* text container */}
-            <div className="flex flex-col gap-2">
-              <p className="text-[12.72px] leading-[100%] text-zinc-800">
-                Cardo-Bold
-                <span className="text-[12.72px] leading-[100%] text-zinc-800">
-                  .{text4}
-                </span>
-              </p>
-              <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
-                <span className="text-[10.9px] leading-[100%] text-zinc-600">
-                  {size4} kB
-                </span>{" "}
-                |{" "}
-                <span className="text-[10.9px] leading-[100%] text-zinc-600">
-                  {time4}ms
-                </span>
-              </p>
-            </div>
-          </div>
-
-          {/* Textbox 3*/}
-          <div
-            className={`flex flex-row gap-2 min-w-[175.89px] w-full max-w-[175.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] ${
-              textOptimized
-                ? "bg-indigo-50 border-indigo-400"
-                : "bg-transparent border-[#E4E4E7]"
-            } transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
-          >
-            <Type
-              size={14.54}
-              strokeWidth={1.36}
-              className="text-indigo-800 z-5"
-            />
-            {/* text container */}
-            <div className="flex flex-col gap-2">
-              <p className="text-[12.72px] leading-[100%] text-zinc-800">
-                Cardo-Bold
-                <span className="text-[12.72px] leading-[100%] text-zinc-800">
-                  .{text5}
-                </span>
-              </p>
-              <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
-                <span className="text-[10.9px] leading-[100%] text-zinc-600">
-                  {size5} kB
-                </span>{" "}
-                |{" "}
-                <span className="text-[10.9px] leading-[100%] text-zinc-600">
-                  {time5}ms
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* 3 text boxes section 2*/}
-        <div className="w-full flex flex-row justify-center gap-[14.13px] mt-[18.24px]">
-          {/* Textbox 1*/}
-          <div
-            className={`flex flex-row gap-2 min-w-[183.89px] w-full max-w-[183.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] ${
-              textOptimized
-                ? "bg-indigo-50 border-indigo-400"
-                : "bg-transparent border-[#E4E4E7]"
-            } transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
-          >
-            <Type
-              size={14.54}
-              strokeWidth={1.36}
-              className="text-indigo-800 z-5"
-            />
-            {/* text container */}
-            <div className="flex flex-col gap-2">
-              <p className="text-[12.72px] leading-[100%] text-zinc-800">
-                Inter-Regular
-                <span className="text-[12.72px] leading-[100%] text-zinc-800">
-                  .{text6}
-                </span>
-              </p>
-              <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
-                <span className="text-[10.9px] leading-[100%] text-zinc-600">
-                  {size6} kB
-                </span>{" "}
-                |{" "}
-                <span className="text-[10.9px] leading-[100%] text-zinc-600">
-                  {time6}ms
-                </span>
-              </p>
-            </div>
-          </div>
-
-          {/* Textbox 2*/}
-          <div
-            className={`flex flex-row gap-2 min-w-[198.89px] w-full max-w-[198.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] ${
-              textOptimized
-                ? "bg-indigo-50 border-indigo-400"
-                : "bg-transparent border-[#E4E4E7]"
-            } transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
-          >
-            <Type
-              size={14.54}
-              strokeWidth={1.36}
-              className="text-indigo-800 z-5"
-            />
-            {/* text container */}
-            <div className="flex flex-col gap-2">
-              <p className="text-[12.72px] leading-[100%] text-zinc-800">
-                Montserrat-Medium
-                <span className="text-[12.72px] leading-[100%] text-zinc-800">
-                  .{text7}
-                </span>
-              </p>
-              <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
-                <span className="text-[10.9px] leading-[100%] text-zinc-600">
-                  {size7} kB
-                </span>{" "}
-                |{" "}
-                <span className="text-[10.9px] leading-[100%] text-zinc-600">
-                  {time7}ms
-                </span>
-              </p>
-            </div>
-          </div>
-
-          {/* Textbox 3*/}
-          <div
-            className={`flex flex-row gap-2 min-w-[206.89px] w-full max-w-[206.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] ${
-              textOptimized
-                ? "bg-indigo-50 border-indigo-400"
-                : "bg-transparent border-[#E4E4E7]"
-            } transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
-          >
-            <Type
-              size={14.54}
-              strokeWidth={1.36}
-              className="text-indigo-800 z-5"
-            />
-            {/* text container */}
-            <div className="flex flex-col gap-2">
-              <p className="text-[12.72px] leading-[100%] text-zinc-800">
-                Montserrat-Medium
-                <span className="text-[12.72px] leading-[100%] text-zinc-800">
-                  .{text8}
-                </span>
-              </p>
-              <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
-                <span className="text-[10.9px] leading-[100%] text-zinc-600">
-                  {size8} kB
-                </span>{" "}
-                |{" "}
-                <span className="text-[10.9px] leading-[100%] text-zinc-600">
-                  {time8}ms
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Last 2 text boxes */}
-        <div className="w-full flex flex-row justify-center gap-[14.77px] mt-[18.24px]">
-          {/* Textbox 1*/}
-          <div
-            className={`flex flex-row gap-2 min-w-[165.89px] w-full max-w-[165.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] ${
-              textOptimized
-                ? "bg-indigo-50 border-indigo-400"
-                : "bg-transparent border-[#E4E4E7]"
-            } transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
-          >
-            <Type
-              size={14.54}
-              strokeWidth={1.36}
-              className="text-indigo-800 z-5"
-            />
-            {/* text container */}
-            <div className="flex flex-col gap-2">
-              <p className="text-[12.72px] leading-[100%] text-zinc-800">
-                Lato-Regular
-                <span className="text-[12.72px] leading-[100%] text-zinc-800">
-                  .{text9}
-                </span>
-              </p>
-              <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
-                <span className="text-[10.9px] leading-[100%] text-zinc-600">
-                  {size9} kB
-                </span>{" "}
-                |{" "}
-                <span className="text-[10.9px] leading-[100%] text-zinc-600">
-                  {time9}ms
-                </span>
-              </p>
-            </div>
-          </div>
-
-          {/* Textbox 2*/}
-          <div
-            className={`flex flex-row gap-2 min-w-[144.89px] w-full max-w-[144.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] ${
-              textOptimized
-                ? "bg-indigo-50 border-indigo-400"
-                : "bg-transparent border-[#E4E4E7]"
-            } transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
-          >
-            <Type
-              size={14.54}
-              strokeWidth={1.36}
-              className="text-indigo-800 z-5"
-            />
-            {/* text container */}
-            <div className="flex flex-col gap-2">
-              <p className="text-[12.72px] leading-[100%] text-zinc-800">
-                Lato-Bold
-                <span className="text-[12.72px] leading-[100%] text-zinc-800">
-                  .{text10}
-                </span>
-              </p>
-              <p className="text-[10.9px] leading-[100%] text-zinc-600 z-5">
-                <span className="text-[10.9px] leading-[100%] text-zinc-600">
-                  {size10} kB
-                </span>{" "}
-                |{" "}
-                <span className="text-[10.9px] leading-[100%] text-zinc-600">
-                  {time10}ms
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
-
+        {original()}
+        {blured()}
         {/* Loader Absolute Section */}
         <div
-          className="flex flex-col items-end absolute left-0 min-h-[468px] h-full max-h-[468px]"
+          className="flex flex-col items-end absolute left-0 min-h-[468px] h-full max-h-[468px] z-4"
           style={{
             width: loaderWide ? "95%" : "156px",
             transition: loaderTransition,
@@ -1672,18 +2058,19 @@ const Animations = () => {
           </div>
           {/* Loader Line */}
           <div
+            ref={loaderLineRef}
             className="flex flex-col self-start h-[414px] relative items-end"
             style={{
-              width: loaderLineWidth,
+              transform: `translateX(${loaderLineX}px)`,
               transition: loaderLineTransition,
             }}
           >
             <div
               className={`w-full min-h-[376.21px] h-full max-h-[376.21px] border-r-[1px] duration-200 transition-opacity border-indigo-700 ${
-                textOptimized ? "opacity-0" : "backdrop-blur-[3px] opacity-100"
+                textOptimized ? "opacity-0" : " opacity-100"
               } flex flex-col justify-center items-end`}
             >
-              <div className="flex w-full max-w-[157.69px] min-h-[204.32px] h-full max-h-[204.32px] bg-[linear-gradient(270deg,rgba(67,56,202,0.6)_-3.44%,rgba(67,56,202,0.4)_35.88%,#FFFFFF_150.42%)] opacity-80 blur-[35px]"></div>
+              <div className="flex w-full max-w-[157.69px] min-h-[204.32px] h-full max-h-[204.32px] bg-[linear-gradient(270deg,rgba(67,56,202,0.6)_-3.44%,rgba(67,56,202,0.4)_35.88%,#FFFFFF_150.42%)] opacity-80 blur-[63px] overflow-hidden"></div>
             </div>
 
             {/* Loader Bottom icon */}
@@ -1856,28 +2243,41 @@ const Animations = () => {
         <button onClick={() => setStep(Math.min(6, step + 1))}>Next</button>
       </div>
 
-      <div className="min-w-[458px] w-full max-w-[458px] min-h-[540px] h-full max-h-[540px] border-[0.91px] border-solid border-zinc-200 rounded-[36px] relative bg-white flex flex-col items-center  overflow-hidden">
-        <div
-          className={`w-full h-full flex flex-col ${dynamicSpacing} items-center grow relative`}
-        >
-          {/* Absolute Con with bg */}
-          <div className="flex w-full h-full items-center justify-center absolute top-0 left-0 pointer-events-none select-none">
-            {/* <div className="flex min-w-[353.76px] w-full max-w-[353.76px] min-h-[443.4px] h-full max-h-[443.4px] bg-[conic-gradient(from_43.24deg_at_24.88%_66.33%,_rgba(99,102,241,0.5)_-3.37deg,_#C7D2FE_54.89deg,_rgba(165,243,252,0.65)_63.64deg,_#FFFFFF_182.15deg,_#67E8F9_236.56deg,_rgba(99,102,241,0.5)_356.63deg,_#C7D2FE_414.89deg)] blur-[150px] opacity-60 transform-gpu rotate-[155.51deg]"> */}
-            <div className="flex min-w-[353.76px] w-full max-w-[353.76px] min-h-[443.4px] h-full max-h-[443.4px]">
-              {(step === 1 ||
-                step === 2 ||
-                step === 3 ||
-                step === 4 ||
-                step === 6) && <img src={BoxBg} alt="Background Box" />}
+      <div
+        className={`min-w-[458px] w-full max-w-[458px] min-h-[540px] h-full max-h-[540px] border-[0.91px] border-solid border-zinc-200 rounded-[36px] relative bg-white flex flex-col items-center ${
+          step === 4 && "justify-center"
+        } overflow-hidden`}
+      >
+        {(step === 1 ||
+          step === 2 ||
+          step === 3 ||
+          step === 5 ||
+          step === 6) && (
+          <>
+            <div
+              className={`w-full h-full flex flex-col ${dynamicSpacing} items-center grow relative`}
+            >
+              {/* Absolute Con with bg */}
+              <div className="flex w-full h-full items-center justify-center absolute top-0 left-0 pointer-events-none select-none">
+                {/* <div className="flex min-w-[353.76px] w-full max-w-[353.76px] min-h-[443.4px] h-full max-h-[443.4px] bg-[conic-gradient(from_43.24deg_at_24.88%_66.33%,_rgba(99,102,241,0.5)_-3.37deg,_#C7D2FE_54.89deg,_rgba(165,243,252,0.65)_63.64deg,_#FFFFFF_182.15deg,_#67E8F9_236.56deg,_rgba(99,102,241,0.5)_356.63deg,_#C7D2FE_414.89deg)] blur-[150px] opacity-60 transform-gpu rotate-[155.51deg]"> */}
+                <div className="flex min-w-[353.76px] w-full max-w-[353.76px] min-h-[443.4px] h-full max-h-[443.4px]">
+                  {(step === 1 ||
+                    step === 2 ||
+                    step === 3 ||
+                    step === 4 ||
+                    step === 6) && <img src={BoxBg} alt="Background Box" />}
+                </div>
+              </div>
+              {step === 1 && firstStep()}
+              {step === 2 && secondStep()}
+              {step === 3 && thirdStep()}
+              {/* {step === 4 && fourthStep()} */}
+              {step === 5 && fifthStep()}
+              {step === 6 && sixedStep()}
             </div>
-          </div>
-          {step === 1 && firstStep()}
-          {step === 2 && secondStep()}
-          {step === 3 && thirdStep()}
-          {step === 4 && fourthStep()}
-          {step === 5 && fifthStep()}
-          {step === 6 && sixedStep()}
-        </div>
+          </>
+        )}
+        {step === 4 && fourthStep()}
       </div>
     </>
   );
