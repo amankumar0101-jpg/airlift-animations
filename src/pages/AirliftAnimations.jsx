@@ -14,7 +14,6 @@ const AirliftAnimations = () => {
           <ProgressBar />
           <ProgressDashboard />
         </div>
-        {/* <StepFourAnimation /> */}
       </div>
     </>
   );

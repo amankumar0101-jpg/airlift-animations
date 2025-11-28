@@ -227,6 +227,11 @@
   pointer-events: none;
 }
 
+.active-text-class {
+  background: #eef2ff;
+  border-color: #818cf8;
+}
+
 /* JS Animation */
 .step6-container.play .box-div {
   animation: revealBox 0.8s ease-in-out forwards;

@@ -408,6 +408,30 @@ const Animations = () => {
     };
   }, [step, setTextOptimized]);
 
+  useEffect(() => {
+    const boxes = Array.from(
+      document.querySelectorAll('[data-textbox="orig"]')
+    );
+    if (!boxes.length) return;
+
+    // Always remove as soon as shrink starts
+    if (!loaderWide) {
+      boxes.forEach((el) => el.classList.remove("active-text-class"));
+      return;
+    }
+
+    // Otherwise, when optimized add the class
+    if (textOptimized) {
+      boxes.forEach((el) => el.classList.add("active-text-class"));
+    } else {
+      boxes.forEach((el) => el.classList.remove("active-text-class"));
+    }
+
+    // cleanup
+    return () =>
+      boxes.forEach((el) => el.classList.remove("active-text-class"));
+  }, [textOptimized, loaderWide, step]);
+
   // For js Animation Looping
   useEffect(() => {
     if (step === 6) {
@@ -1337,6 +1361,7 @@ const Animations = () => {
               <div className="w-full flex flex-row justify-center gap-[14.77px]">
                 {/* Textbox 1*/}
                 <div
+                  data-textbox="orig"
                   className={`flex flex-row gap-2 min-w-[167.89px] w-full max-w-[167.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-transparent border-[#E4E4E7] transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
                 >
                   <Type
@@ -1366,6 +1391,7 @@ const Animations = () => {
 
                 {/* Textbox 2*/}
                 <div
+                  data-textbox="orig"
                   className={`flex flex-row gap-2 min-w-[171.89px] w-full max-w-[171.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-transparent border-[#E4E4E7] transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
                 >
                   <Type
@@ -1398,6 +1424,7 @@ const Animations = () => {
               <div className="w-full flex flex-row justify-center gap-[14.21px] mt-[18.24px]">
                 {/* Textbox 1*/}
                 <div
+                  data-textbox="orig"
                   className={`flex flex-row gap-2 min-w-[183.89px] w-full max-w-[183.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-transparent border-[#E4E4E7] transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
                 >
                   <Type
@@ -1427,6 +1454,7 @@ const Animations = () => {
 
                 {/* Textbox 2*/}
                 <div
+                  data-textbox="orig"
                   className={`flex flex-row gap-2 min-w-[162.89px] w-full max-w-[162.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-transparent border-[#E4E4E7] transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
                 >
                   <Type
@@ -1456,6 +1484,7 @@ const Animations = () => {
 
                 {/* Textbox 3*/}
                 <div
+                  data-textbox="orig"
                   className={`flex flex-row gap-2 min-w-[175.89px] w-full max-w-[175.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-transparent border-[#E4E4E7] transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
                 >
                   <Type
@@ -1488,6 +1517,7 @@ const Animations = () => {
               <div className="w-full flex flex-row justify-center gap-[14.13px] mt-[18.24px]">
                 {/* Textbox 1*/}
                 <div
+                  data-textbox="orig"
                   className={`flex flex-row gap-2 min-w-[183.89px] w-full max-w-[183.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-transparent border-[#E4E4E7] transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
                 >
                   <Type
@@ -1517,6 +1547,7 @@ const Animations = () => {
 
                 {/* Textbox 2*/}
                 <div
+                  data-textbox="orig"
                   className={`flex flex-row gap-2 min-w-[198.89px] w-full max-w-[198.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-transparent border-[#E4E4E7] transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
                 >
                   <Type
@@ -1546,6 +1577,7 @@ const Animations = () => {
 
                 {/* Textbox 3*/}
                 <div
+                  data-textbox="orig"
                   className={`flex flex-row gap-2 min-w-[206.89px] w-full max-w-[206.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-transparent border-[#E4E4E7] transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
                 >
                   <Type
@@ -1578,6 +1610,7 @@ const Animations = () => {
               <div className="w-full flex flex-row justify-center gap-[14.77px] mt-[18.24px]">
                 {/* Textbox 1*/}
                 <div
+                  data-textbox="orig"
                   className={`flex flex-row gap-2 min-w-[165.89px] w-full max-w-[165.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-transparent border-[#E4E4E7] transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
                 >
                   <Type
@@ -1607,6 +1640,7 @@ const Animations = () => {
 
                 {/* Textbox 2*/}
                 <div
+                  data-textbox="orig"
                   className={`flex flex-row gap-2 min-w-[144.89px] w-full max-w-[144.89px] min-h-[69px] h-full max-h-[69px] border-[0.91px] bg-transparent border-[#E4E4E7] transition-all duration-300 ease-in-out rounded-[16px] py-[calc(16px-0.91px)] px-2`}
                 >
                   <Type
