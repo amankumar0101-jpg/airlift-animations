@@ -2100,8 +2100,8 @@ const Animations = () => {
             }}
           >
             <div
-              className={`w-full min-h-[376.21px] h-full max-h-[376.21px] border-r-[1px] duration-200 transition-opacity border-indigo-700 ${
-                textOptimized ? "opacity-0" : " opacity-100"
+              className={`w-full min-h-[376.21px] h-full max-h-[376.21px] border-r-[1px] duration-300 transition-opacity border-indigo-700 ${
+                textOptimized && loaderWide ? "opacity-0" : "opacity-100"
               } flex flex-col justify-center items-end`}
             >
               <div className="flex w-full max-w-[157.69px] min-h-[204.32px] h-full max-h-[204.32px] bg-[linear-gradient(270deg,rgba(67,56,202,0.6)_-3.44%,rgba(67,56,202,0.4)_35.88%,#FFFFFF_150.42%)] opacity-80 blur-[63px] overflow-hidden"></div>

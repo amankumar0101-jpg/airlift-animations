@@ -119,11 +119,29 @@ const ProgressDashboard = () => {
                     {/* Left Div */}
                     <div className="flex flex-col min-w-[577.7px] w-full max-w-[577.5px] pt-7">
                       {/* Heading Text */}
-                      <div className="flex flex-col gap-1 min-h-[57px] justify-between">
-                        <p className="font-semibold text-[20px] leading-[120%] text-indigo-900">
+                      <div
+                        className={`flex flex-col ${
+                          scrollTo === 1 || scrollTo === 2
+                            ? "gap-1 min-h-[57px]"
+                            : "gap-[3px] min-h-[43px]"
+                        } justify-between`}
+                      >
+                        <p
+                          className={`${
+                            scrollTo === 1 || scrollTo === 2
+                              ? "text-[20px] "
+                              : "text-[15px]"
+                          } leading-[120%] font-semibold text-indigo-900`}
+                        >
                           Images now fit the moment.
                         </p>
-                        <p className="font-bold text-[24px] leading-[120%] text-indigo-900">
+                        <p
+                          className={`${
+                            scrollTo === 1 || scrollTo === 2
+                              ? " text-[24px]"
+                              : "text-[18px]"
+                          } font-bold leading-[120%] text-indigo-900`}
+                        >
                           Smaller Files, Smarter Timing & No Waiting!
                         </p>
                       </div>
@@ -131,20 +149,20 @@ const ProgressDashboard = () => {
                       <div className="flex flex-col gap-4 p-2 mt-6">
                         {/* 1st Content Box */}
                         <div className="flex justify-center items-center min-w-[484px] w-full max-w-[484px] bg-[linear-gradient(164.77deg,#F4F4F5_-5.85%,#FAFAFA_89.65%)] rounded-[16px] p-[1.5px]">
-                          <div className="flex flex-col gap-4 w-full rounded-[16px] p-[14.5px] bg-white">
+                          <div className="flex flex-col gap-4 w-full rounded-[16px] py-4 px-[14.5px] bg-white">
                             {/* icon + text */}
                             <div className="flex flex-row gap-4 w-fit justify-between items-center">
                               <CircleAlert
                                 size={16}
                                 strokeWidth={1}
-                                className="text-[#71717A]"
+                                className="shrink-0 text-[#71717A]"
                               />
-                              <p className="font-semibold text-[16px] leading-[100%] text-[#71717A]">
+                              <p className="font-semibold text-[16px] leading-[120%] text-[#71717A]">
                                 Issues Found:
                               </p>
                             </div>
                             {/* text list */}
-                            <ul className="font-normal text-[14px] leading-[100%] text-[#71717A] list-disc pl-12">
+                            <ul className="font-normal text-[14px] leading-[120%] text-[#71717A] list-disc pl-12">
                               <li>All CSS images loading at once.</li>
                               <li>
                                 High-resolution images unnecessarily loaded
@@ -156,20 +174,20 @@ const ProgressDashboard = () => {
 
                         {/* 2nd Content Box */}
                         <div className="flex justify-center items-center min-w-[484px] w-full max-w-[484px] bg-[linear-gradient(164.77deg,#F4F4F5_-5.85%,#FAFAFA_89.65%)] rounded-[16px] p-[1.5px]">
-                          <div className="flex flex-col gap-4 w-full rounded-[16px] p-[14.5px] bg-white">
+                          <div className="flex flex-col gap-4 w-full rounded-[16px] py-4 px-[14.5px] bg-white">
                             {/* icon + text */}
                             <div className="flex flex-row gap-4 w-fit justify-between items-center">
                               <TrendingDown
                                 size={16}
                                 strokeWidth={1}
-                                className="text-[#71717A]"
+                                className="shrink-0 text-[#71717A]"
                               />
-                              <p className="font-semibold text-[16px] leading-[100%] text-[#71717A]">
+                              <p className="font-semibold text-[16px] leading-[120%] text-[#71717A]">
                                 Impact:
                               </p>
                             </div>
                             {/* text list */}
-                            <ul className="font-normal text-[14px] leading-[100%] text-[#71717A] list-disc pl-12">
+                            <ul className="font-normal text-[14px] leading-[120%] text-[#71717A] list-disc pl-12">
                               <li>
                                 Increases initial page load time and payload
                               </li>
@@ -190,14 +208,14 @@ const ProgressDashboard = () => {
                               <Lightbulb
                                 size={16}
                                 strokeWidth={1}
-                                className="text-[#71717A]"
+                                className="shrink-0 text-[#71717A]"
                               />
-                              <p className="font-semibold text-[16px] leading-[100%] text-[#71717A]">
+                              <p className="font-semibold text-[16px] leading-[120%] text-[#71717A]">
                                 Resolution:
                               </p>
                             </div>
                             {/* text list */}
-                            <ul className="font-normal text-[14px] leading-[100%] text-[#71717A] list-disc pl-12">
+                            <ul className="font-normal text-[14px] leading-[120%] text-[#71717A] list-disc pl-12">
                               <li>
                                 Serving high-quality images without using the
                                 same heavy resolution for all devices.
@@ -209,7 +227,7 @@ const ProgressDashboard = () => {
                             </ul>
 
                             {/* Last para */}
-                            <p className="font-medium text-[14px] leading-[100%] text-indigo-700 pl-7">
+                            <p className="font-medium text-[14px] leading-[120%] text-indigo-700 pl-7">
                               Lazyloads all CSS background images so they load
                               only when needed.
                             </p>
@@ -220,7 +238,7 @@ const ProgressDashboard = () => {
 
                     {/* Right Div That Contains Image */}
                     <div
-                      className={`flex justify-center items-center min-w-[577.7px] w-full max-w-[577.5px] ${
+                      className={`flex justify-center items-center min-w-[415.14px] w-full max-w-[415.14px] min-h-[286.67px] h-full max-h-[286.67px] self-center ${
                         scrollTo === 1
                           ? "origin-bottom-left scaleUpRight"
                           : "origin-center scaleUpLeft"
@@ -229,7 +247,7 @@ const ProgressDashboard = () => {
                       <img
                         src={Scrolldataimage}
                         alt="Scrolling Data Image"
-                        className="object-contain"
+                        className="object-contain h-[286.67px] w-full"
                       />
                     </div>
                   </div>
@@ -249,11 +267,29 @@ const ProgressDashboard = () => {
                     {/* Left Div */}
                     <div className="flex flex-col min-w-[577.7px] w-full max-w-[577.5px] pt-7">
                       {/* Heading Text */}
-                      <div className="flex flex-col gap-1 min-h-[57px] justify-between">
-                        <p className="font-semibold text-[20px] leading-[120%] text-indigo-900">
+                      <div
+                        className={`flex flex-col ${
+                          scrollTo === 2 || scrollTo === 3
+                            ? "gap-1 min-h-[57px]"
+                            : "gap-[3px] min-h-[43px]"
+                        } justify-between`}
+                      >
+                        <p
+                          className={`${
+                            scrollTo === 2 || scrollTo === 3
+                              ? "text-[20px] "
+                              : "text-[15px]"
+                          } leading-[120%] font-semibold text-indigo-900`}
+                        >
                           Trimming extras, unblocking load, &
                         </p>
-                        <p className="font-bold text-[24px] leading-[120%] text-indigo-900">
+                        <p
+                          className={`${
+                            scrollTo === 2 || scrollTo === 3
+                              ? " text-[24px]"
+                              : "text-[18px]"
+                          } font-bold leading-[120%] text-indigo-900`}
+                        >
                           Keeping Only The Fonts You Need.
                         </p>
                       </div>
@@ -261,20 +297,20 @@ const ProgressDashboard = () => {
                       <div className="flex flex-col gap-4 p-2 mt-6">
                         {/* 1st Content Box */}
                         <div className="flex justify-center items-center min-w-[484px] w-full max-w-[484px] bg-[linear-gradient(164.77deg,#F4F4F5_-5.85%,#FAFAFA_89.65%)] rounded-[16px] p-[1.5px]">
-                          <div className="flex flex-col gap-4 w-full rounded-[16px] p-[14.5px] bg-white">
+                          <div className="flex flex-col gap-4 w-full rounded-[16px] py-4 px-[14.5px] bg-white">
                             {/* icon + text */}
                             <div className="flex flex-row gap-4 w-fit justify-between items-center">
                               <CircleAlert
                                 size={16}
                                 strokeWidth={1}
-                                className="text-[#71717A]"
+                                className="shrink-0 text-[#71717A]"
                               />
-                              <p className="font-semibold text-[16px] leading-[100%] text-[#71717A]">
+                              <p className="font-semibold text-[16px] leading-[120%] text-[#71717A]">
                                 Issues Found:
                               </p>
                             </div>
                             {/* text list */}
-                            <ul className="font-normal text-[14px] leading-[100%] text-[#71717A] list-disc pl-12">
+                            <ul className="font-normal text-[14px] leading-[120%] text-[#71717A] list-disc pl-12">
                               <li>Large font files</li>
                               <li>Missing fallbacks</li>
                             </ul>
@@ -283,20 +319,20 @@ const ProgressDashboard = () => {
 
                         {/* 2nd Content Box */}
                         <div className="flex justify-center items-center min-w-[484px] w-full max-w-[484px] bg-[linear-gradient(164.77deg,#F4F4F5_-5.85%,#FAFAFA_89.65%)] rounded-[16px] p-[1.5px]">
-                          <div className="flex flex-col gap-4 w-full rounded-[16px] p-[14.5px] bg-white">
+                          <div className="flex flex-col gap-4 w-full rounded-[16px] py-4 bg-white">
                             {/* icon + text */}
                             <div className="flex flex-row gap-4 w-fit justify-between items-center">
                               <TrendingDown
                                 size={16}
                                 strokeWidth={1}
-                                className="text-[#71717A]"
+                                className="shrink-0 text-[#71717A]"
                               />
-                              <p className="font-semibold text-[16px] leading-[100%] text-[#71717A]">
+                              <p className="font-semibold text-[16px] leading-[120%] text-[#71717A]">
                                 Impact:
                               </p>
                             </div>
                             {/* text list */}
-                            <ul className="font-normal text-[14px] leading-[100%] text-[#71717A] list-disc pl-12">
+                            <ul className="font-normal text-[14px] leading-[120%] text-[#71717A] list-disc pl-12">
                               <li>Slow page loading</li>
                               <li>Text flickering</li>
                               <li>Increased bandwidth usage.</li>
@@ -313,21 +349,21 @@ const ProgressDashboard = () => {
                               <Lightbulb
                                 size={16}
                                 strokeWidth={1}
-                                className="text-[#71717A]"
+                                className="shrink-0 text-[#71717A]"
                               />
-                              <p className="font-semibold text-[16px] leading-[100%] text-[#71717A]">
+                              <p className="font-semibold text-[16px] leading-[120%] text-[#71717A]">
                                 Resolution:
                               </p>
                             </div>
                             {/* text list */}
-                            <ul className="font-normal text-[14px] leading-[100%] text-[#71717A] list-disc pl-12">
+                            <ul className="font-normal text-[14px] leading-[120%] text-[#71717A] list-disc pl-12">
                               <li>Analyzing all fonts used on the site</li>
                               <li>Removing unused characters (subsetting)</li>
                               <li>Serving smaller font files. </li>
                             </ul>
 
                             {/* Last para */}
-                            <p className="font-medium text-[14px] leading-[100%] text-indigo-700 pl-7">
+                            <p className="font-medium text-[14px] leading-[120%] text-indigo-700 pl-7">
                               Smart fallback fonts ensure text is always visible
                               while the main fonts load, and caching makes sure
                               fonts aren’t downloaded repeatedly.
@@ -375,11 +411,29 @@ const ProgressDashboard = () => {
                     {/* Left Div */}
                     <div className="flex flex-col min-w-[577.7px] w-full max-w-[577.5px] pt-7">
                       {/* Heading Text */}
-                      <div className="flex flex-col gap-1 min-h-[57px] justify-between">
-                        <p className="font-semibold text-[20px] leading-[120%] text-indigo-900">
+                      <div
+                        className={`flex flex-col ${
+                          scrollTo === 3 || scrollTo === 4
+                            ? "gap-1 min-h-[57px]"
+                            : "gap-[3px] min-h-[43px]"
+                        } justify-between`}
+                      >
+                        <p
+                          className={`${
+                            scrollTo === 3 || scrollTo === 4
+                              ? "text-[20px] "
+                              : "text-[15px]"
+                          } leading-[120%] font-semibold text-indigo-900`}
+                        >
                           Styles, simplified — no bloat, no stalls.
                         </p>
-                        <p className="font-bold text-[24px] leading-[120%] text-indigo-900">
+                        <p
+                          className={`${
+                            scrollTo === 3 || scrollTo === 4
+                              ? " text-[24px]"
+                              : "text-[18px]"
+                          } font-bold leading-[120%] text-indigo-900`}
+                        >
                           Just a Calm & Fast Responsive Page.
                         </p>
                       </div>
@@ -387,20 +441,20 @@ const ProgressDashboard = () => {
                       <div className="flex flex-col gap-4 p-2 mt-6">
                         {/* 1st Content Box */}
                         <div className="flex justify-center items-center min-w-[484px] w-full max-w-[484px] bg-[linear-gradient(164.77deg,#F4F4F5_-5.85%,#FAFAFA_89.65%)] rounded-[16px] p-[1.5px]">
-                          <div className="flex flex-col gap-4 w-full rounded-[16px] p-[14.5px] bg-white">
+                          <div className="flex flex-col gap-4 w-full rounded-[16px] py-4 px-[14.5px] bg-white">
                             {/* icon + text */}
                             <div className="flex flex-row gap-4 w-fit justify-between items-center">
                               <CircleAlert
                                 size={16}
                                 strokeWidth={1}
-                                className="text-[#71717A]"
+                                className="shrink-0 text-[#71717A]"
                               />
-                              <p className="font-semibold text-[16px] leading-[100%] text-[#71717A]">
+                              <p className="font-semibold text-[16px] leading-[120%] text-[#71717A]">
                                 Issues Found:
                               </p>
                             </div>
                             {/* text list */}
-                            <ul className="font-normal text-[14px] leading-[100%] text-[#71717A] list-disc pl-12">
+                            <ul className="font-normal text-[14px] leading-[120%] text-[#71717A] list-disc pl-12">
                               <li>Redundant styles loading unnecessarily</li>
                               <li>Large chunks of unused CSS</li>
                             </ul>
@@ -409,20 +463,20 @@ const ProgressDashboard = () => {
 
                         {/* 2nd Content Box */}
                         <div className="flex justify-center items-center min-w-[484px] w-full max-w-[484px] bg-[linear-gradient(164.77deg,#F4F4F5_-5.85%,#FAFAFA_89.65%)] rounded-[16px] p-[1.5px]">
-                          <div className="flex flex-col gap-4 w-full rounded-[16px] p-[14.5px] bg-white">
+                          <div className="flex flex-col gap-4 w-full rounded-[16px] py-4 px-[14.5px] bg-white">
                             {/* icon + text */}
                             <div className="flex flex-row gap-4 w-fit justify-between items-center">
                               <TrendingDown
                                 size={16}
                                 strokeWidth={1}
-                                className="text-[#71717A]"
+                                className="shrink-0 text-[#71717A]"
                               />
-                              <p className="font-semibold text-[16px] leading-[100%] text-[#71717A]">
+                              <p className="font-semibold text-[16px] leading-[120%] text-[#71717A]">
                                 Impact:
                               </p>
                             </div>
                             {/* text list */}
-                            <ul className="font-normal text-[14px] leading-[100%] text-[#71717A] list-disc pl-12">
+                            <ul className="font-normal text-[14px] leading-[120%] text-[#71717A] list-disc pl-12">
                               <li>
                                 Heavier payload leading to slower page load
                                 times
@@ -445,21 +499,21 @@ const ProgressDashboard = () => {
                               <Lightbulb
                                 size={16}
                                 strokeWidth={1}
-                                className="text-[#71717A]"
+                                className="shrink-0 text-[#71717A]"
                               />
-                              <p className="font-semibold text-[16px] leading-[100%] text-[#71717A]">
+                              <p className="font-semibold text-[16px] leading-[120%] text-[#71717A]">
                                 Resolution:
                               </p>
                             </div>
                             {/* text list */}
-                            <ul className="font-normal text-[14px] leading-[100%] text-[#71717A] list-disc pl-12">
+                            <ul className="font-normal text-[14px] leading-[120%] text-[#71717A] list-disc pl-12">
                               <li>Scanning and removing unused CSS.</li>
                               <li>Keeping only relevant styles.</li>
                               <li>Minifying the final CSS files.</li>
                             </ul>
 
                             {/* Last para */}
-                            <p className="font-medium text-[14px] leading-[100%] text-indigo-700 pl-7">
+                            <p className="font-medium text-[14px] leading-[120%] text-indigo-700 pl-7">
                               Unused CSS trim unused CSS intelligently without
                               breaking page layouts, keeping your styling intact
                               while reducing size by up to 70%.
@@ -500,11 +554,29 @@ const ProgressDashboard = () => {
                     {/* Left Div */}
                     <div className="flex flex-col min-w-[577.7px] w-full max-w-[577.5px] pt-7">
                       {/* Heading Text */}
-                      <div className="flex flex-col gap-1 min-h-[57px] justify-between">
-                        <p className="font-semibold text-[20px] leading-[120%] text-indigo-900">
+                      <div
+                        className={`flex flex-col ${
+                          scrollTo === 4 || scrollTo === 1
+                            ? "gap-1 min-h-[57px]"
+                            : "gap-[3px] min-h-[43px]"
+                        } justify-between`}
+                      >
+                        <p
+                          className={`${
+                            scrollTo === 4 || scrollTo === 1
+                              ? "text-[20px] "
+                              : "text-[15px]"
+                          } leading-[120%] font-semibold text-indigo-900`}
+                        >
                           From bulky to balanced — Clean, conflict-free
                         </p>
-                        <p className="font-bold text-[24px] leading-[120%] text-indigo-900">
+                        <p
+                          className={`${
+                            scrollTo === 4 || scrollTo === 1
+                              ? " text-[24px]"
+                              : "text-[18px]"
+                          } font-bold leading-[120%] text-indigo-900`}
+                        >
                           Scripts that keep Interactions Smooth.
                         </p>
                       </div>
@@ -512,20 +584,20 @@ const ProgressDashboard = () => {
                       <div className="flex flex-col gap-4 p-2 mt-6">
                         {/* 1st Content Box */}
                         <div className="flex justify-center items-center min-w-[484px] w-full max-w-[484px] bg-[linear-gradient(164.77deg,#F4F4F5_-5.85%,#FAFAFA_89.65%)] rounded-[16px] p-[1.5px]">
-                          <div className="flex flex-col gap-4 w-full rounded-[16px] p-[14.5px] bg-white">
+                          <div className="flex flex-col gap-4 w-full rounded-[16px] py-4 px-[14.5px] bg-white">
                             {/* icon + text */}
                             <div className="flex flex-row gap-4 w-fit justify-between items-center">
                               <CircleAlert
                                 size={16}
                                 strokeWidth={1}
-                                className="text-[#71717A]"
+                                className="shrink-0 text-[#71717A]"
                               />
-                              <p className="font-semibold text-[16px] leading-[100%] text-[#71717A]">
+                              <p className="font-semibold text-[16px] leading-[120%] text-[#71717A]">
                                 Issues Found:
                               </p>
                             </div>
                             {/* text list */}
-                            <ul className="font-normal text-[14px] leading-[100%] text-[#71717A] list-disc pl-12">
+                            <ul className="font-normal text-[14px] leading-[120%] text-[#71717A] list-disc pl-12">
                               <li>
                                 Heavy, unoptimized JavaScript files blocking
                                 rendering{" "}
@@ -540,20 +612,20 @@ const ProgressDashboard = () => {
 
                         {/* 2nd Content Box */}
                         <div className="flex justify-center items-center min-w-[484px] w-full max-w-[484px] bg-[linear-gradient(164.77deg,#F4F4F5_-5.85%,#FAFAFA_89.65%)] rounded-[16px] p-[1.5px]">
-                          <div className="flex flex-col gap-4 w-full rounded-[16px] p-[14.5px] bg-white">
+                          <div className="flex flex-col gap-4 w-full rounded-[16px] py-4 px-[14.5px] bg-white">
                             {/* icon + text */}
                             <div className="flex flex-row gap-4 w-fit justify-between items-center">
                               <TrendingDown
                                 size={16}
                                 strokeWidth={1}
-                                className="text-[#71717A]"
+                                className="shrink-0 text-[#71717A]"
                               />
-                              <p className="font-semibold text-[16px] leading-[100%] text-[#71717A]">
+                              <p className="font-semibold text-[16px] leading-[120%] text-[#71717A]">
                                 Impact:
                               </p>
                             </div>
                             {/* text list */}
-                            <ul className="font-normal text-[14px] leading-[100%] text-[#71717A] list-disc pl-12">
+                            <ul className="font-normal text-[14px] leading-[120%] text-[#71717A] list-disc pl-12">
                               <li>
                                 Page interactivity delayed, slower
                                 Time-to-Interactive (TTI)
@@ -575,14 +647,14 @@ const ProgressDashboard = () => {
                               <Lightbulb
                                 size={16}
                                 strokeWidth={1}
-                                className="text-[#71717A]"
+                                className="shrink-0 text-[#71717A]"
                               />
-                              <p className="font-semibold text-[16px] leading-[100%] text-[#71717A]">
+                              <p className="font-semibold text-[16px] leading-[120%] text-[#71717A]">
                                 Resolution:
                               </p>
                             </div>
                             {/* text list */}
-                            <ul className="font-normal text-[14px] leading-[100%] text-[#71717A] list-disc pl-12">
+                            <ul className="font-normal text-[14px] leading-[120%] text-[#71717A] list-disc pl-12">
                               <li>
                                 Using a 3-layer JavaScript aggregation to manage
                                 load order efficiently.
@@ -594,7 +666,7 @@ const ProgressDashboard = () => {
                             </ul>
 
                             {/* Last para */}
-                            <p className="font-medium text-[14px] leading-[100%] text-indigo-700 pl-7">
+                            <p className="font-medium text-[14px] leading-[120%] text-indigo-700 pl-7">
                               Our 3-layer mechanism ensures zero site breakages
                               while delivering faster execution and reduced load
                               times.
@@ -622,7 +694,7 @@ const ProgressDashboard = () => {
                         <div
                           className={`scrollto4-container ${
                             play ? "play" : ""
-                          } w-full min-h-[265px] h-full max-h-[265px] pl-[69px] pr-[68px] relative`} //flex items-center justify-center
+                          } w-full min-h-[265px] h-full max-h-[265px] pt-[18.5px] pl-[69px] pr-[68px] relative`} //flex items-center justify-center
                         >
                           <div className="flex flex-col w-full h-full">
                             <div className="box-top-div flex justify-center mx-8 pb-[5.5px]">
@@ -724,7 +796,7 @@ const ProgressDashboard = () => {
                           <img
                             src={JSReqImg}
                             alt=""
-                            className="w-full h-[204px] object-cover"
+                            className="w-full h-[204px] object-contain"
                           />
                         </div>
                       </div>

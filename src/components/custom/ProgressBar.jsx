@@ -87,12 +87,12 @@ const ProgressBar = () => {
           progressCompleted
             ? "max-h-[458px] min-h-[458px]"
             : "max-h-[258px] min-h-[258px]"
-        } bg-[linear-gradient(92.17deg,rgba(45,212,191,0.4)-1.04%,rgba(129,140,248,0.4)41.74%,rgba(67,56,202,0.4)101.07%)] rounded-[20px] p-[1.5px]`}
+        } bg-[linear-gradient(92.17deg,rgba(45,212,191,0.4)_-1.04%,rgba(129,140,248,0.4)_41.74%,rgba(67,56,202,0.4)_101.07%)] rounded-[20px] p-[1.5px]`}
       >
         {/* Main box for contents */}
         <div
           className={`w-full h-full relative overflow-hidden duration-200 transition-all ease-in-out bg-white rounded-[20px] p-6 ${
-            progressCompleted ? "min-h-[456.5px]" : "min-h-[256.5px]"
+            progressCompleted ? "min-h-[455px]" : "min-h-[255px]"
           }`}
         >
           {/* below is the absolute top blur */}

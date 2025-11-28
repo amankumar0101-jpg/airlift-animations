@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Tabgif1 from "@/assets/airlift-tab-gif1.gif";
 import Tabgif2 from "@/assets/airlift-tab-gif2.gif";
+import scissors from "@/assets/airlift-tab-gif2-scissor.gif";
 import Tab3gif1 from "@/assets/airlift-tabs-3-img1.png";
 import JsIcon from "@/assets/js-icon.png";
 import Tab3gif2 from "@/assets/airlift-tabs-3-img2.png";
@@ -262,11 +263,20 @@ const TabsSection = () => {
                     className="w-[500px] h-[500px] object-contain absolute bottom-[-22px]"
                   />
                 ) : (
-                  <img
-                    src={Tabgif2}
-                    alt="Airlift Tab Animation 2"
-                    className="w-[304px] h-[244px] object-contain absolute top-[37px] opacity-80"
-                  />
+                  <>
+                    <img
+                      src={Tabgif2}
+                      alt="Airlift Tab Animation 2"
+                      className="min-w-[304px] w-full max-w-[304px] h-[244px] object-cover absolute top-[37px] opacity-80"
+                    />
+                    <div className="flex min-w-[76px] w-full max-w-[76px] min-h-[76px] h-full max-h-[76px] bg-indigo-50 border-[1px] border-solid border-indigo-400 rounded-full absolute top-[109px] [box-shadow:0px_10px_10px_-5px_rgba(0,0,0,0.04),_0px_20px_25px_-5px_rgba(0,0,0,0.1)]">
+                      <img
+                        src={scissors}
+                        alt="Scissors Gif"
+                        className="w-full h-[76px] object-cover transform-gpu rotate-90"
+                      />
+                    </div>
+                  </>
                 )}
 
                 {/* Icon text */}
@@ -274,7 +284,7 @@ const TabsSection = () => {
                   className={`border-[0.91px] border-indigo-400 flex items-start p-2 rounded-[8px] font-normal text-[12px] leading-[120%] gap-2 bg-indigo-50 text-zinc-800 cursor-default [box-shadow:0px_10px_10px_-5px_rgba(0,0,0,0.04),_0px_20px_25px_-5px_rgba(0,0,0,0.1)] self-start transition-all duration-300 ease-in-out transform-gpu ${
                     activeTab === 1
                       ? "translate-x-[308px] translate-y-[66px]"
-                      : "translate-x-[408px] translate-y-[178px]"
+                      : "translate-x-[408px] translate-y-[197.5px]"
                   }`}
                 >
                   {activeTab === 1 ? (
@@ -299,7 +309,7 @@ const TabsSection = () => {
                   className={`border-[0.91px] border-indigo-400 flex items-start p-2 rounded-[8px] font-normal text-[12px] leading-[120%] gap-2 bg-indigo-50 text-zinc-800 cursor-default [box-shadow:0px_10px_10px_-5px_rgba(0,0,0,0.04),_0px_20px_25px_-5px_rgba(0,0,0,0.1)] self-start transition-all duration-300 ease-in-out transform-gpu ${
                     activeTab === 1
                       ? "translate-x-[104px] translate-y-[265px]"
-                      : "translate-x-[287px] translate-y-[190px]"
+                      : "translate-x-[287.5px] translate-y-[210px]"
                   }`}
                 >
                   {activeTab === 1 ? (
