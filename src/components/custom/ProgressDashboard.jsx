@@ -647,7 +647,7 @@ const ProgressDashboard = () => {
                         {/* 3rd Content Box */}
 
                         <div className="flex justify-center items-center min-w-[484px] w-full max-w-[484px] bg-[linear-gradient(164.77deg,#E0E7FF_-5.85%,#EEF2FF_89.65%)] rounded-[16px] p-[1.5px]">
-                          <div className="flex flex-col w-full bg-white rounded-[14.5px">
+                          <div className="flex flex-col w-full bg-white rounded-[14.5px]">
                             <div className="flex flex-col gap-4 w-full rounded-[14.5px] p-[14.5px] bg-[linear-gradient(96.26deg,rgba(238,242,255,0.8)_-7.03%,rgba(238,242,255,0.2)_107.44%)]">
                               {/* icon + text */}
                               <div className="flex flex-row gap-4 w-fit justify-between items-center">
