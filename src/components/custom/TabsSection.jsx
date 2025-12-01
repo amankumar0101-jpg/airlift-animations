@@ -96,9 +96,9 @@ const TabsSection = () => {
               </span>
               {/* Title Description */}
               <span
-                className={`text-[16px] font-normal leading-[120%] text-zinc-600 transition-all duration-300 ease-in-out mt-4 ${
+                className={`text-[14px] font-normal leading-[120%] text-zinc-600 transition-all duration-300 ease-in-out ${
                   activeTab === 1
-                    ? "mt-4 h-[57.61px]"
+                    ? "mt-4 h-[34px]"
                     : " h-0 overflow-hidden mt-0"
                 }`}
               >
@@ -141,9 +141,9 @@ const TabsSection = () => {
               </span>
               {/* Title Description */}
               <span
-                className={`text-[16px] font-normal leading-[120%] text-zinc-600 transition-all duration-300 ease-in-out mt-4 ${
+                className={`text-[14px] font-normal leading-[120%] text-zinc-600 transition-all duration-300 ease-in-out ${
                   activeTab === 2
-                    ? "mt-4 h-[57.61px]"
+                    ? "mt-4 h-[34px]"
                     : " h-0 overflow-hidden mt-0"
                 }`}
               >
@@ -186,9 +186,9 @@ const TabsSection = () => {
               </span>
               {/* Title Description */}
               <span
-                className={`text-[16px] font-normal leading-[120%] text-zinc-600 transition-all duration-300 ease-in-out mt-4 ${
+                className={`text-[14px] font-normal leading-[120%] text-zinc-600 transition-all duration-300 ease-in-out ${
                   activeTab === 3
-                    ? "mt-4 h-[57.61px]"
+                    ? "mt-4 h-[51px]"
                     : " h-0 overflow-hidden mt-0"
                 }`}
               >
@@ -231,9 +231,9 @@ const TabsSection = () => {
               </span>
               {/* Title Description */}
               <span
-                className={`text-[16px] font-normal leading-[120%] text-zinc-600 transition-all duration-300 ease-in-out mt-4 ${
+                className={`text-[14px] font-normal leading-[120%] text-zinc-600 transition-all duration-300 ease-in-out ${
                   activeTab === 4
-                    ? "mt-4 h-[57.61px]"
+                    ? "mt-4 h-[34px]"
                     : " h-0 overflow-hidden mt-0"
                 }`}
               >

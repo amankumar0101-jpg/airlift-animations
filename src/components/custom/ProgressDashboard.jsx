@@ -149,7 +149,7 @@ const ProgressDashboard = () => {
                       <div className="flex flex-col gap-4 p-2 mt-6">
                         {/* 1st Content Box */}
                         <div className="flex justify-center items-center min-w-[484px] w-full max-w-[484px] bg-[linear-gradient(164.77deg,#F4F4F5_-5.85%,#FAFAFA_89.65%)] rounded-[16px] p-[1.5px]">
-                          <div className="flex flex-col gap-4 w-full rounded-[16px] py-4 px-[14.5px] bg-white">
+                          <div className="flex flex-col gap-4 w-full rounded-[16px] py-4 px-[14.5px] bg-[linear-gradient(179.47deg,#FAFAFA_-23.45%,#FFFFFF_34.79%)]">
                             {/* icon + text */}
                             <div className="flex flex-row gap-4 w-fit justify-between items-center">
                               <CircleAlert
@@ -174,7 +174,7 @@ const ProgressDashboard = () => {
 
                         {/* 2nd Content Box */}
                         <div className="flex justify-center items-center min-w-[484px] w-full max-w-[484px] bg-[linear-gradient(164.77deg,#F4F4F5_-5.85%,#FAFAFA_89.65%)] rounded-[16px] p-[1.5px]">
-                          <div className="flex flex-col gap-4 w-full rounded-[16px] py-4 px-[14.5px] bg-white">
+                          <div className="flex flex-col gap-4 w-full rounded-[16px] py-4 px-[14.5px] bg-[linear-gradient(179.47deg,#FAFAFA_-23.45%,#FFFFFF_34.79%)]">
                             {/* icon + text */}
                             <div className="flex flex-row gap-4 w-fit justify-between items-center">
                               <TrendingDown
@@ -297,7 +297,7 @@ const ProgressDashboard = () => {
                       <div className="flex flex-col gap-4 p-2 mt-6">
                         {/* 1st Content Box */}
                         <div className="flex justify-center items-center min-w-[484px] w-full max-w-[484px] bg-[linear-gradient(164.77deg,#F4F4F5_-5.85%,#FAFAFA_89.65%)] rounded-[16px] p-[1.5px]">
-                          <div className="flex flex-col gap-4 w-full rounded-[16px] py-4 px-[14.5px] bg-white">
+                          <div className="flex flex-col gap-4 w-full rounded-[16px] py-4 px-[14.5px] bg-[linear-gradient(179.47deg,#FAFAFA_-23.45%,#FFFFFF_34.79%)]">
                             {/* icon + text */}
                             <div className="flex flex-row gap-4 w-fit justify-between items-center">
                               <CircleAlert
@@ -319,7 +319,7 @@ const ProgressDashboard = () => {
 
                         {/* 2nd Content Box */}
                         <div className="flex justify-center items-center min-w-[484px] w-full max-w-[484px] bg-[linear-gradient(164.77deg,#F4F4F5_-5.85%,#FAFAFA_89.65%)] rounded-[16px] p-[1.5px]">
-                          <div className="flex flex-col gap-4 w-full rounded-[16px] py-4 bg-white">
+                          <div className="flex flex-col gap-4 w-full rounded-[16px] py-4 px-[14.5px] bg-[linear-gradient(179.47deg,#FAFAFA_-23.45%,#FFFFFF_34.79%)]">
                             {/* icon + text */}
                             <div className="flex flex-row gap-4 w-fit justify-between items-center">
                               <TrendingDown
@@ -441,7 +441,7 @@ const ProgressDashboard = () => {
                       <div className="flex flex-col gap-4 p-2 mt-6">
                         {/* 1st Content Box */}
                         <div className="flex justify-center items-center min-w-[484px] w-full max-w-[484px] bg-[linear-gradient(164.77deg,#F4F4F5_-5.85%,#FAFAFA_89.65%)] rounded-[16px] p-[1.5px]">
-                          <div className="flex flex-col gap-4 w-full rounded-[16px] py-4 px-[14.5px] bg-white">
+                          <div className="flex flex-col gap-4 w-full rounded-[16px] py-4 px-[14.5px] bg-[linear-gradient(179.47deg,#FAFAFA_-23.45%,#FFFFFF_34.79%)]">
                             {/* icon + text */}
                             <div className="flex flex-row gap-4 w-fit justify-between items-center">
                               <CircleAlert
@@ -463,7 +463,7 @@ const ProgressDashboard = () => {
 
                         {/* 2nd Content Box */}
                         <div className="flex justify-center items-center min-w-[484px] w-full max-w-[484px] bg-[linear-gradient(164.77deg,#F4F4F5_-5.85%,#FAFAFA_89.65%)] rounded-[16px] p-[1.5px]">
-                          <div className="flex flex-col gap-4 w-full rounded-[16px] py-4 px-[14.5px] bg-white">
+                          <div className="flex flex-col gap-4 w-full rounded-[16px] py-4 px-[14.5px] bg-[linear-gradient(179.47deg,#FAFAFA_-23.45%,#FFFFFF_34.79%)]">
                             {/* icon + text */}
                             <div className="flex flex-row gap-4 w-fit justify-between items-center">
                               <TrendingDown
@@ -584,7 +584,7 @@ const ProgressDashboard = () => {
                       <div className="flex flex-col gap-4 p-2 mt-6">
                         {/* 1st Content Box */}
                         <div className="flex justify-center items-center min-w-[484px] w-full max-w-[484px] bg-[linear-gradient(164.77deg,#F4F4F5_-5.85%,#FAFAFA_89.65%)] rounded-[16px] p-[1.5px]">
-                          <div className="flex flex-col gap-4 w-full rounded-[16px] py-4 px-[14.5px] bg-white">
+                          <div className="flex flex-col gap-4 w-full rounded-[16px] py-4 px-[14.5px] bg-[linear-gradient(179.47deg,#FAFAFA_-23.45%,#FFFFFF_34.79%)]">
                             {/* icon + text */}
                             <div className="flex flex-row gap-4 w-fit justify-between items-center">
                               <CircleAlert
@@ -612,7 +612,7 @@ const ProgressDashboard = () => {
 
                         {/* 2nd Content Box */}
                         <div className="flex justify-center items-center min-w-[484px] w-full max-w-[484px] bg-[linear-gradient(164.77deg,#F4F4F5_-5.85%,#FAFAFA_89.65%)] rounded-[16px] p-[1.5px]">
-                          <div className="flex flex-col gap-4 w-full rounded-[16px] py-4 px-[14.5px] bg-white">
+                          <div className="flex flex-col gap-4 w-full rounded-[16px] py-4 px-[14.5px] bg-[linear-gradient(179.47deg,#FAFAFA_-23.45%,#FFFFFF_34.79%)]">
                             {/* icon + text */}
                             <div className="flex flex-row gap-4 w-fit justify-between items-center">
                               <TrendingDown
