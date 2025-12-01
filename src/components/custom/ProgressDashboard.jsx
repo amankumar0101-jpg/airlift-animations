@@ -202,35 +202,37 @@ const ProgressDashboard = () => {
                         {/* 3rd Content Box */}
 
                         <div className="flex justify-center items-center min-w-[484px] w-full max-w-[484px] bg-[linear-gradient(164.77deg,#E0E7FF_-5.85%,#EEF2FF_89.65%)] rounded-[16px] p-[1.5px]">
-                          <div className="flex flex-col gap-4 w-full rounded-[16px] p-[14.5px] bg-[linear-gradient(96.26deg,rgba(238,242,255,0.8)_-7.03%,rgba(238,242,255,0.2)_107.44%)]">
-                            {/* icon + text */}
-                            <div className="flex flex-row gap-4 w-fit justify-between items-center">
-                              <Lightbulb
-                                size={16}
-                                strokeWidth={1}
-                                className="shrink-0 text-[#71717A]"
-                              />
-                              <p className="font-semibold text-[16px] leading-[120%] text-[#71717A]">
-                                Resolution:
+                          <div className="flex flex-col w-full bg-white rounded-[14.5px]">
+                            <div className="flex flex-col gap-4 w-full rounded-[14.5px] p-[14.5px] bg-[linear-gradient(96.26deg,rgba(238,242,255,0.8)_-7.03%,rgba(238,242,255,0.2)_107.44%)]">
+                              {/* icon + text */}
+                              <div className="flex flex-row gap-4 w-fit justify-between items-center">
+                                <Lightbulb
+                                  size={16}
+                                  strokeWidth={1}
+                                  className="shrink-0 text-[#71717A]"
+                                />
+                                <p className="font-semibold text-[16px] leading-[120%] text-[#71717A]">
+                                  Resolution:
+                                </p>
+                              </div>
+                              {/* text list */}
+                              <ul className="font-normal text-[14px] leading-[120%] text-[#71717A] list-disc pl-12">
+                                <li>
+                                  Serving high-quality images without using the
+                                  same heavy resolution for all devices.
+                                </li>
+                                <li>
+                                  Handling every image inside CSS individually
+                                  for each device and viewport size.
+                                </li>
+                              </ul>
+
+                              {/* Last para */}
+                              <p className="font-medium text-[14px] leading-[120%] text-indigo-700 pl-7">
+                                Lazyloads all CSS background images so they load
+                                only when needed.
                               </p>
                             </div>
-                            {/* text list */}
-                            <ul className="font-normal text-[14px] leading-[120%] text-[#71717A] list-disc pl-12">
-                              <li>
-                                Serving high-quality images without using the
-                                same heavy resolution for all devices.
-                              </li>
-                              <li>
-                                Handling every image inside CSS individually for
-                                each device and viewport size.
-                              </li>
-                            </ul>
-
-                            {/* Last para */}
-                            <p className="font-medium text-[14px] leading-[120%] text-indigo-700 pl-7">
-                              Lazyloads all CSS background images so they load
-                              only when needed.
-                            </p>
                           </div>
                         </div>
                       </div>
@@ -343,31 +345,33 @@ const ProgressDashboard = () => {
                         {/* 3rd Content Box */}
 
                         <div className="flex justify-center items-center min-w-[484px] w-full max-w-[484px] bg-[linear-gradient(164.77deg,#E0E7FF_-5.85%,#EEF2FF_89.65%)] rounded-[16px] p-[1.5px]">
-                          <div className="flex flex-col gap-4 w-full rounded-[16px] p-[14.5px] bg-[linear-gradient(96.26deg,rgba(238,242,255,0.8)_-7.03%,rgba(238,242,255,0.2)_107.44%)]">
-                            {/* icon + text */}
-                            <div className="flex flex-row gap-4 w-fit justify-between items-center">
-                              <Lightbulb
-                                size={16}
-                                strokeWidth={1}
-                                className="shrink-0 text-[#71717A]"
-                              />
-                              <p className="font-semibold text-[16px] leading-[120%] text-[#71717A]">
-                                Resolution:
+                          <div className="flex flex-col w-full bg-white rounded-[14.5px]">
+                            <div className="flex flex-col gap-4 w-full rounded-[14.5px] p-[14.5px] bg-[linear-gradient(96.26deg,rgba(238,242,255,0.8)_-7.03%,rgba(238,242,255,0.2)_107.44%)]">
+                              {/* icon + text */}
+                              <div className="flex flex-row gap-4 w-fit justify-between items-center">
+                                <Lightbulb
+                                  size={16}
+                                  strokeWidth={1}
+                                  className="shrink-0 text-[#71717A]"
+                                />
+                                <p className="font-semibold text-[16px] leading-[120%] text-[#71717A]">
+                                  Resolution:
+                                </p>
+                              </div>
+                              {/* text list */}
+                              <ul className="font-normal text-[14px] leading-[120%] text-[#71717A] list-disc pl-12">
+                                <li>Analyzing all fonts used on the site</li>
+                                <li>Removing unused characters (subsetting)</li>
+                                <li>Serving smaller font files. </li>
+                              </ul>
+
+                              {/* Last para */}
+                              <p className="font-medium text-[14px] leading-[120%] text-indigo-700 pl-7">
+                                Smart fallback fonts ensure text is always
+                                visible while the main fonts load, and caching
+                                makes sure fonts aren’t downloaded repeatedly.
                               </p>
                             </div>
-                            {/* text list */}
-                            <ul className="font-normal text-[14px] leading-[120%] text-[#71717A] list-disc pl-12">
-                              <li>Analyzing all fonts used on the site</li>
-                              <li>Removing unused characters (subsetting)</li>
-                              <li>Serving smaller font files. </li>
-                            </ul>
-
-                            {/* Last para */}
-                            <p className="font-medium text-[14px] leading-[120%] text-indigo-700 pl-7">
-                              Smart fallback fonts ensure text is always visible
-                              while the main fonts load, and caching makes sure
-                              fonts aren’t downloaded repeatedly.
-                            </p>
                           </div>
                         </div>
                       </div>
@@ -493,31 +497,33 @@ const ProgressDashboard = () => {
                         {/* 3rd Content Box */}
 
                         <div className="flex justify-center items-center min-w-[484px] w-full max-w-[484px] bg-[linear-gradient(164.77deg,#E0E7FF_-5.85%,#EEF2FF_89.65%)] rounded-[16px] p-[1.5px]">
-                          <div className="flex flex-col gap-4 w-full rounded-[16px] p-[14.5px] bg-[linear-gradient(96.26deg,rgba(238,242,255,0.8)_-7.03%,rgba(238,242,255,0.2)_107.44%)]">
-                            {/* icon + text */}
-                            <div className="flex flex-row gap-4 w-fit justify-between items-center">
-                              <Lightbulb
-                                size={16}
-                                strokeWidth={1}
-                                className="shrink-0 text-[#71717A]"
-                              />
-                              <p className="font-semibold text-[16px] leading-[120%] text-[#71717A]">
-                                Resolution:
+                          <div className="flex flex-col w-full bg-white rounded-[14.5px]">
+                            <div className="flex flex-col gap-4 w-full rounded-[14.5px] p-[14.5px] bg-[linear-gradient(96.26deg,rgba(238,242,255,0.8)_-7.03%,rgba(238,242,255,0.2)_107.44%)]">
+                              {/* icon + text */}
+                              <div className="flex flex-row gap-4 w-fit justify-between items-center">
+                                <Lightbulb
+                                  size={16}
+                                  strokeWidth={1}
+                                  className="shrink-0 text-[#71717A]"
+                                />
+                                <p className="font-semibold text-[16px] leading-[120%] text-[#71717A]">
+                                  Resolution:
+                                </p>
+                              </div>
+                              {/* text list */}
+                              <ul className="font-normal text-[14px] leading-[120%] text-[#71717A] list-disc pl-12">
+                                <li>Scanning and removing unused CSS.</li>
+                                <li>Keeping only relevant styles.</li>
+                                <li>Minifying the final CSS files.</li>
+                              </ul>
+
+                              {/* Last para */}
+                              <p className="font-medium text-[14px] leading-[120%] text-indigo-700 pl-7">
+                                Unused CSS trim unused CSS intelligently without
+                                breaking page layouts, keeping your styling
+                                intact while reducing size by up to 70%.
                               </p>
                             </div>
-                            {/* text list */}
-                            <ul className="font-normal text-[14px] leading-[120%] text-[#71717A] list-disc pl-12">
-                              <li>Scanning and removing unused CSS.</li>
-                              <li>Keeping only relevant styles.</li>
-                              <li>Minifying the final CSS files.</li>
-                            </ul>
-
-                            {/* Last para */}
-                            <p className="font-medium text-[14px] leading-[120%] text-indigo-700 pl-7">
-                              Unused CSS trim unused CSS intelligently without
-                              breaking page layouts, keeping your styling intact
-                              while reducing size by up to 70%.
-                            </p>
                           </div>
                         </div>
                       </div>
@@ -641,36 +647,38 @@ const ProgressDashboard = () => {
                         {/* 3rd Content Box */}
 
                         <div className="flex justify-center items-center min-w-[484px] w-full max-w-[484px] bg-[linear-gradient(164.77deg,#E0E7FF_-5.85%,#EEF2FF_89.65%)] rounded-[16px] p-[1.5px]">
-                          <div className="flex flex-col gap-4 w-full rounded-[16px] p-[14.5px] bg-[linear-gradient(96.26deg,rgba(238,242,255,0.8)_-7.03%,rgba(238,242,255,0.2)_107.44%)]">
-                            {/* icon + text */}
-                            <div className="flex flex-row gap-4 w-fit justify-between items-center">
-                              <Lightbulb
-                                size={16}
-                                strokeWidth={1}
-                                className="shrink-0 text-[#71717A]"
-                              />
-                              <p className="font-semibold text-[16px] leading-[120%] text-[#71717A]">
-                                Resolution:
+                          <div className="flex flex-col w-full bg-white rounded-[14.5px">
+                            <div className="flex flex-col gap-4 w-full rounded-[14.5px] p-[14.5px] bg-[linear-gradient(96.26deg,rgba(238,242,255,0.8)_-7.03%,rgba(238,242,255,0.2)_107.44%)]">
+                              {/* icon + text */}
+                              <div className="flex flex-row gap-4 w-fit justify-between items-center">
+                                <Lightbulb
+                                  size={16}
+                                  strokeWidth={1}
+                                  className="shrink-0 text-[#71717A]"
+                                />
+                                <p className="font-semibold text-[16px] leading-[120%] text-[#71717A]">
+                                  Resolution:
+                                </p>
+                              </div>
+                              {/* text list */}
+                              <ul className="font-normal text-[14px] leading-[120%] text-[#71717A] list-disc pl-12">
+                                <li>
+                                  Using a 3-layer JavaScript aggregation to
+                                  manage load order efficiently.
+                                </li>
+                                <li>
+                                  Loading non-critical JS asynchronously to
+                                  improve speed.
+                                </li>
+                              </ul>
+
+                              {/* Last para */}
+                              <p className="font-medium text-[14px] leading-[120%] text-indigo-700 pl-7">
+                                Our 3-layer mechanism ensures zero site
+                                breakages while delivering faster execution and
+                                reduced load times.
                               </p>
                             </div>
-                            {/* text list */}
-                            <ul className="font-normal text-[14px] leading-[120%] text-[#71717A] list-disc pl-12">
-                              <li>
-                                Using a 3-layer JavaScript aggregation to manage
-                                load order efficiently.
-                              </li>
-                              <li>
-                                Loading non-critical JS asynchronously to
-                                improve speed.
-                              </li>
-                            </ul>
-
-                            {/* Last para */}
-                            <p className="font-medium text-[14px] leading-[120%] text-indigo-700 pl-7">
-                              Our 3-layer mechanism ensures zero site breakages
-                              while delivering faster execution and reduced load
-                              times.
-                            </p>
                           </div>
                         </div>
                       </div>
