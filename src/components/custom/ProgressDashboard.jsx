@@ -256,24 +256,24 @@ const ProgressDashboard = () => {
                 </div>
 
                 {/* Row 2 Contents */}
-                <div
-                  className={`relative row-item ${
-                    scrollTo === 2 || scrollTo === 3
-                      ? "opacity-100"
-                      : "opacity-20"
-                  }`}
-                >
+                <div className={`relative row-item`}>
                   <div className="px-8 pl-[69px] flex flex-row justify-between gap-6 w-full min-h-[581px] h-full max-h-[581px]">
                     {/* Absolute Dot Marker */}
-                    <div className="absolute top-[33.5px] left-[37px] bg-indigo-900 min-w-[13px] w-full max-w-[13px] min-h-[13px] h-full max-h-[13px] rounded-full"></div>
+                    <div
+                      className={`absolute top-[33.5px] left-[37px] bg-indigo-900 min-w-[13px] w-full max-w-[13px] min-h-[13px] h-full max-h-[13px] rounded-full transition-opacity duration-200 ease-linear ${
+                        scrollTo === 2 || scrollTo === 3
+                          ? "opacity-100"
+                          : "opacity-20"
+                      }`}
+                    ></div>
                     {/* Left Div */}
                     <div className="flex flex-col min-w-[577.7px] w-full max-w-[577.5px] pt-7">
                       {/* Heading Text */}
                       <div
-                        className={`flex flex-col ${
+                        className={`flex flex-col transition-opacity duration-200 ease-linear ${
                           scrollTo === 2 || scrollTo === 3
-                            ? "gap-1 min-h-[57px]"
-                            : "gap-[3px] min-h-[43px]"
+                            ? "gap-1 min-h-[57px] opacity-100"
+                            : "gap-[3px] min-h-[43px] opacity-20"
                         } justify-between`}
                       >
                         <p
@@ -402,24 +402,24 @@ const ProgressDashboard = () => {
                 </div>
 
                 {/* Row 3 Contents */}
-                <div
-                  className={`relative row-item ${
-                    scrollTo === 3 || scrollTo === 4
-                      ? "opacity-100"
-                      : "opacity-20"
-                  }`}
-                >
+                <div className={`relative row-item`}>
                   <div className="px-8 pl-[69px] flex flex-row justify-between gap-6 w-full min-h-[581px] h-full max-h-[581px]">
                     {/* Absolute Dot Marker */}
-                    <div className="absolute top-[33.5px] left-[37px] bg-indigo-900 min-w-[13px] w-full max-w-[13px] min-h-[13px] h-full max-h-[13px] rounded-full"></div>
+                    <div
+                      className={`absolute top-[33.5px] left-[37px] bg-indigo-900 min-w-[13px] w-full max-w-[13px] min-h-[13px] h-full max-h-[13px] rounded-full transition-opacity duration-200 ease-linear ${
+                        scrollTo === 3 || scrollTo === 4
+                          ? "opacity-100"
+                          : "opacity-20"
+                      }`}
+                    ></div>
                     {/* Left Div */}
                     <div className="flex flex-col min-w-[577.7px] w-full max-w-[577.5px] pt-7">
                       {/* Heading Text */}
                       <div
-                        className={`flex flex-col ${
+                        className={`flex flex-col transition-opacity duration-200 ease-linear ${
                           scrollTo === 3 || scrollTo === 4
-                            ? "gap-1 min-h-[57px]"
-                            : "gap-[3px] min-h-[43px]"
+                            ? "gap-1 min-h-[57px] opacity-100"
+                            : "gap-[3px] min-h-[43px] opacity-20"
                         } justify-between`}
                       >
                         <p
@@ -547,24 +547,24 @@ const ProgressDashboard = () => {
                 </div>
 
                 {/* Row 4 Contents */}
-                <div
-                  className={`relative row-item ${
-                    scrollTo === 4 || scrollTo === 1
-                      ? "opacity-100"
-                      : "opacity-20"
-                  }`}
-                >
+                <div className={`relative row-item`}>
                   <div className="px-8 pl-[69px] flex flex-row justify-between gap-6 w-full min-h-[581px] h-full max-h-[581px]">
                     {/* Absolute Dot Marker */}
-                    <div className="absolute top-[33.5px] left-[37px] bg-indigo-900 min-w-[13px] w-full max-w-[13px] min-h-[13px] h-full max-h-[13px] rounded-full"></div>
+                    <div
+                      className={`absolute top-[33.5px] left-[37px] bg-indigo-900 min-w-[13px] w-full max-w-[13px] min-h-[13px] h-full max-h-[13px] rounded-full transition-opacity duration-200 ease-linear ${
+                        scrollTo === 4 || scrollTo === 1
+                          ? "opacity-100"
+                          : "opacity-20"
+                      }`}
+                    ></div>
                     {/* Left Div */}
                     <div className="flex flex-col min-w-[577.7px] w-full max-w-[577.5px] pt-7">
                       {/* Heading Text */}
                       <div
-                        className={`flex flex-col ${
+                        className={`flex flex-col transition-opacity duration-200 ease-linear ${
                           scrollTo === 4 || scrollTo === 1
-                            ? "gap-1 min-h-[57px]"
-                            : "gap-[3px] min-h-[43px]"
+                            ? "gap-1 min-h-[57px] opacity-100"
+                            : "gap-[3px] min-h-[43px] opacity-20"
                         } justify-between`}
                       >
                         <p
